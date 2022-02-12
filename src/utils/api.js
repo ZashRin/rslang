@@ -1,4 +1,5 @@
 import { SIGNIN_LINK, USERS_LINK, WORDS_LINK } from '../constants/apiLinks';
+import { saveUserData } from './storage';
 
 export const getWords = async (group, page) => {
   const response = await fetch(`${WORDS_LINK}?group=${group ? group : 0}&page=${page ? page : 0}`);
@@ -18,7 +19,7 @@ export const createUser = async (user) => {
 
   console.log(content);
 
-  return content;
+  loginUser(user);
 };
 
 export const loginUser = async (user) => {
@@ -33,6 +34,5 @@ export const loginUser = async (user) => {
   const content = await rawResponse.json();
 
   console.log(content);
-
-  return content;
+  saveUserData(content);
 };
