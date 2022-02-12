@@ -12,9 +12,10 @@ export function WordCard(obj) {
     textExampleTranslate,
     textExample,
     image,
+    color,
   } = obj;
   return (
-    <div className="WordCard-container">
+    <div className="WordCard-container" style={{ backgroundColor: `rgba(${color})` }}>
       <div className="WordCard-content-left">
         <div className="WordCard-img" style={{ backgroundImage: `url(${BASE_LINK}/${image})` }}></div>
       </div>

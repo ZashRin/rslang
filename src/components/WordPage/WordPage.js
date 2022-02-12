@@ -10,7 +10,7 @@ export function WordPage() {
   const [group, setGroup] = useState(0);
   const [page, setPage] = useState(0);
   const [menu, setMenu] = useState('hidden');
-  const [color, setColor] = useState('255 19 32 / 60%');
+  const [color, setColor] = useState('255 19 32 / 40%');
   useEffect(() => {
     getWords(group, page).then(setObj);
   }, [group, page]);
@@ -19,7 +19,7 @@ export function WordPage() {
       <div className="BookPage-content">
         <div className="BookPage">
           {obj?.map((el) => (
-            <WordCard key={el.id} {...el} />
+            <WordCard color={color} key={el.id} {...el} />
           ))}
         </div>
         <WordPageMenu
