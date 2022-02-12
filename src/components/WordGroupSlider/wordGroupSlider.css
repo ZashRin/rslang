@@ -1,0 +1,38 @@
+.WordGroup-menu{
+    display: flex;
+    justify-content: center;
+}
+.WordGroup-el__circle, .WordGroup-el__circle-main {
+    border-radius: 50%;
+    background-color: rgb(255 0 0 / 50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.WordGroup-el__circle{
+    width: 55px;
+    height: 55px;
+}
+.WordGroup-el__circle-main {
+    width: 40px;
+    height: 40px;
+}
+
+.WordGroup-el__circle:hover {
+    transform: scale(1.5);
+    opacity: 85%;
+    border: 1px solid red;
+    cursor: pointer;
+}
+.WordGroup-el__circle-main:hover{
+    border: 1px solid red;
+    cursor: pointer;
+}
+
+.WordGroup-container {
+    position: absolute;
+    bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

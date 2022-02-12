@@ -1,0 +1,46 @@
+.WordPage-menu {
+    position: fixed;
+    bottom: 0%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.WordPage-menu-wrapper {
+    display: flex;
+    background: rgb(96 222 248 / 75%);
+    justify-content: center;
+    width: 95%;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+.WordPage-count{
+    background-color: #0dcaf0;
+}
+.btn-info {
+    width: 100px;
+}
+
+.btn-info:hover {
+    border: 1px solid red !important;
+    box-shadow: none !important;
+    background-color: aquamarine !important;
+}
+
+.btn-info:focus {
+    box-shadow: none !important;
+}
+.btn-check:focus+.btn, .btn:focus {
+    box-shadow: none !important;
+}
+.WordPage-menu-slider{
+    display: flex;
+}
+.HomeSVG{
+    width: 40px;
+    height: 40px;
+}
+.HomeSVG:hover,
+.HomeSVG g:hover{
+    cursor: pointer;
+    fill: rgb(255, 255, 255);
+}
