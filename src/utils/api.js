@@ -17,6 +17,8 @@ export const createUser = async (user) => {
   const content = await rawResponse.json();
 
   console.log(content);
+
+  return content;
 };
 
 export const loginUser = async (user) => {
@@ -31,4 +33,6 @@ export const loginUser = async (user) => {
   const content = await rawResponse.json();
 
   console.log(content);
+
+  return content;
 };

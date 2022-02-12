@@ -1,5 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { createUser, loginUser } from '../../utils/api';
+import { validateEmail } from '../../utils/generalUtils';
 import './styles.css';
 
 export function LoginForm() {
@@ -12,6 +13,7 @@ export function LoginForm() {
   const login = useCallback(() => {
     loginUser({ email, password });
   }, [email, password]);
+  const validation = useRef(null);
   return (
     <div id="formContent" className="fadeInDown">
       <form>
@@ -31,6 +33,7 @@ export function LoginForm() {
           placeholder="Пароль"
           onChange={(e) => inputPswd(e.target.value)}
         ></input>
+        <p ref={validation} className="validation fadeIn third"></p>
         <div className="btnCont fadeIn third">
           <input
             type="submit"
@@ -38,6 +41,14 @@ export function LoginForm() {
             value="Войти"
             onClick={(e) => {
               e.preventDefault();
+              if (!validateEmail(email)) {
+                validation.current.innerText = 'Невалидный Email';
+                return;
+              }
+              if (password.length < 8) {
+                validation.current.innerText = 'Минимальная длина пароля - 8 символов';
+                return;
+              }
               login();
             }}
           ></input>
@@ -48,6 +59,14 @@ export function LoginForm() {
             value="Регистрация"
             onClick={(e) => {
               e.preventDefault();
+              if (!validateEmail(email)) {
+                validation.current.innerText = 'Невалидный Email';
+                return;
+              }
+              if (password.length < 8) {
+                validation.current.innerText = 'Минимальная длина пароля - 8 символов';
+                return;
+              }
               crUsr();
             }}
           ></input>
