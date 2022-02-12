@@ -1,7 +1,10 @@
-.WordGroup-menu{
+.WordGroup-menu {
     display: flex;
     justify-content: center;
+    padding-right: 15px;
+    font-size: 22px
 }
+
 .WordGroup-el__circle, .WordGroup-el__circle-main {
     border-radius: 50%;
     background-color: rgb(255 0 0 / 50%);
@@ -9,29 +12,32 @@
     justify-content: center;
     align-items: center;
 }
-.WordGroup-el__circle{
-    width: 55px;
-    height: 55px;
+
+.WordGroup-el__circle {
+    width: 60px;
+    height: 60px;
 }
+
 .WordGroup-el__circle-main {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
 }
 
 .WordGroup-el__circle:hover {
-    transform: scale(1.5);
+    transform: scale(1.2);
     opacity: 85%;
     border: 1px solid red;
     cursor: pointer;
 }
-.WordGroup-el__circle-main:hover{
+
+.WordGroup-el__circle-main:hover {
     border: 1px solid red;
     cursor: pointer;
 }
 
 .WordGroup-container {
     position: absolute;
-    bottom: 50px;
+    bottom: 60px;
     display: flex;
     flex-direction: column;
     gap: 10px;

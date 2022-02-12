@@ -12,7 +12,7 @@ export function WordPage() {
   const [menu, setMenu] = useState('hidden');
   const [color, setColor] = useState('255 19 32 / 60%');
   useEffect(() => {
-    getWords(group, page).then(setObj, setGroup, setPage);
+    getWords(group, page).then(setObj);
   }, [group, page]);
   return (
     <div className="BookPage-wrapper">

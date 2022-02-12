@@ -9,8 +9,12 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
   return (
     <div className="WordPage-menu">
       <div className="WordPage-menu-wrapper">
-        <div className="WordPage-menu-slider">
+        <div className="WordPage-menu-links">
           <RenderHomeSVG />
+          <p className="WordPage-menu-links__game">Training</p>
+        </div>
+
+        <div className="WordPage-menu-slider">
           <Button
             variant="info"
             disabled={page === minPage ? true : false}

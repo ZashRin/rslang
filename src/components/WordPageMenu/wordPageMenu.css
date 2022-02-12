@@ -8,7 +8,7 @@
 .WordPage-menu-wrapper {
     display: flex;
     background: rgb(96 222 248 / 75%);
-    justify-content: center;
+    justify-content: space-between;
     width: 95%;
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
@@ -36,11 +36,24 @@
     display: flex;
 }
 .HomeSVG{
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
 }
 .HomeSVG:hover,
 .HomeSVG g:hover{
     cursor: pointer;
     fill: rgb(255, 255, 255);
+}
+.WordPage-menu-links{
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    gap: 50px
+}
+.WordPage-menu-links__game{
+    font-size: 22px;
+}
+.WordPage-menu-links__game:hover{
+    cursor: pointer;
+    color: white;
 }
