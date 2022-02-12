@@ -20,7 +20,6 @@ export function WordPage() {
         {obj?.map((el) => (
           <WordCard key={el.id} {...el} />
         ))}
-        ;
       </div>
       <WordPageSlider setPage={setPage} page={page} minPage={MIN_PAGE} maxPage={MAX_PAGE} />
     </div>

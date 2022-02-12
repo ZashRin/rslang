@@ -1,3 +1,20 @@
-.WordPage-menu{
+.WordPage-menu {
     display: flex;
+}
+
+.btn-info {
+    width: 100px;
+}
+
+.btn-info:hover {
+    border: 1px solid red !important;
+    box-shadow: none !important;
+    background-color: aquamarine !important;
+}
+
+.btn-info:focus {
+    box-shadow: none !important;
+}
+.btn-check:focus+.btn, .btn:focus {
+    box-shadow: none !important;
 }

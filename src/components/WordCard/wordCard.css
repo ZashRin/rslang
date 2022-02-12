@@ -4,7 +4,7 @@
     border-radius: 25px;
     border: 1px solid black;
     overflow: hidden;
-    width: 50vw;
+    width: 45vw;
 }
 .WordCard-content-left{
     width: 40%;
@@ -33,3 +33,14 @@
     background-size: cover;
     background-position: center center;
 }
+@media screen and (max-width:1650px){
+    .WordCard-container{
+        width: 60vw;
+    }
+}
+@media screen and (max-width:1650px){
+    .WordCard-img{
+        height: 100%;
+    }
+}
+

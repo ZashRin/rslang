@@ -1,10 +1,13 @@
 import React from 'react';
 import './wordPageSlider.css';
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function WordPageSlider({ page, setPage, minPage, maxPage }) {
   return (
     <div className="WordPage-menu">
-      <button
+      <Button
+        variant="info"
         disabled={page === minPage ? true : false}
         className="WordGroup-clicker-SuperMinus"
         onClick={() => {
@@ -12,8 +15,9 @@ export function WordPageSlider({ page, setPage, minPage, maxPage }) {
         }}
       >
         &laquo;
-      </button>
-      <button
+      </Button>
+      <Button
+        variant="info"
         disabled={page === minPage ? true : false}
         className="WordGroup-clicker-minus"
         onClick={() => {
@@ -21,9 +25,10 @@ export function WordPageSlider({ page, setPage, minPage, maxPage }) {
         }}
       >
         &#60;
-      </button>
+      </Button>
       <div className="WordPage-count">{page + 1}/30 </div>
-      <button
+      <Button
+        variant="info"
         className="WordGroup-clicker-plus"
         disabled={page === maxPage ? true : false}
         onClick={() => {
@@ -31,8 +36,9 @@ export function WordPageSlider({ page, setPage, minPage, maxPage }) {
         }}
       >
         &#62;
-      </button>
-      <button
+      </Button>
+      <Button
+        variant="info"
         className="WordGroup-clicker-SuperPlus"
         disabled={page === maxPage ? true : false}
         onClick={() => {
@@ -40,7 +46,7 @@ export function WordPageSlider({ page, setPage, minPage, maxPage }) {
         }}
       >
         &raquo;
-      </button>
+      </Button>
     </div>
   );
 }
