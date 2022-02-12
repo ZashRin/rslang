@@ -3,14 +3,13 @@ import './wordPageMenu.css';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { WordGroupSlider } from '../WordGroupSlider/WordGroupSlider';
-import { RenderHomeSVG } from '../../utils/RenderHomeSVG';
 
 export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup, menu, setMenu, color, setColor }) {
   return (
     <div className="WordPage-menu">
       <div className="WordPage-menu-wrapper">
         <div className="WordPage-menu-links">
-          <RenderHomeSVG />
+          <i class="fa-solid fa-house-chimney"></i>
           <p className="WordPage-menu-links__game">Training</p>
         </div>
 
