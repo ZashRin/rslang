@@ -1,0 +1,37 @@
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 16px 24px;
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 15%);
+    margin-top: auto;
+    align-items: center;
+    background-color: #FFFFFF;
+    font-size: 30px;
+}
+
+.footer-logo {
+    width: 20%;
+}
+
+.gitLink {
+    text-decoration: none;
+    color: black;
+    
+}
+
+.footer-git {
+    width: 50%;
+}
+
+.gitLinks-item {
+    list-style-type: none;
+}
+
+.footer-gitLinks {
+    display: flex;
+    flex-direction: row;
+    padding-inline-start: 0px;
+    justify-content: space-between;
+    width: 100%;
+}
