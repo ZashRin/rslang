@@ -1,0 +1,16 @@
+.BookPage-wrapper{
+    background-image: url(https://rolling-scopes-school.github.io/alexander-gma-JSFE2021Q3/async-race/73a9d3184bf2e702f93c.jpg);
+    height: 100%;
+}
+.BookPage{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+@media screen and (max-width:1650px){
+    .BookPage{
+        flex-direction: column;
+    }
+}
