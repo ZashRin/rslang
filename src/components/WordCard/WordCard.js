@@ -1,11 +1,7 @@
 import React from 'react';
 import { BASE_LINK } from '../../constants/apiLinks';
 import './wordCard.css';
-
-function PlayAudio(audio) {
-  const AUDIO = new Audio(`${BASE_LINK}/${audio}`);
-  return AUDIO.play();
-}
+import { playAudio } from '../../utils/audio';
 
 export function WordCard(obj) {
   const {
@@ -18,35 +14,37 @@ export function WordCard(obj) {
     textExample,
     image,
     audio,
+    audioMeaning,
+    audioExample,
     color,
   } = obj;
   return (
-    <div className="WordCard-container" style={{ backgroundColor: `rgba(${color})` }}>
-      <div className="WordCard-content-left">
-        <div className="WordCard-img" style={{ backgroundImage: `url(${BASE_LINK}/${image})` }}></div>
+    <div className="word-card-container" style={{ backgroundColor: `rgba(${color})` }}>
+      <div className="word-card-content-left">
+        <div className="word-card-img" style={{ backgroundImage: `url(${BASE_LINK}/${image})` }}></div>
       </div>
-      <div className="WordCard-content-right">
+      <div className="word-card-content-right">
         <div className="word-card__header">
-          <div className="word-card__audio" onClick={() => PlayAudio(audio)}>
+          <div className="word-card__audio" onClick={() => playAudio(audio, audioMeaning, audioExample)}>
             <i className="fa-solid fa-circle-play"></i>
           </div>
-          <div className="WordCard-word">
+          <div className="word-card-word">
             {word}- {transcription} - {wordTranslate}
           </div>
         </div>
-        <div className="WordCard-meaning">
+        <div className="word-card-meaning">
           <p
-            className="WordCard_text-meaning-en wordcard-text"
+            className="word-card_text-meaning-en wordcard-text"
             dangerouslySetInnerHTML={{ __html: `${textMeaning}` }}
           ></p>
-          <p className="WordCard_text-meaning-ru wordcard-text">{textMeaningTranslate}</p>
+          <p className="word-card_text-meaning-ru wordcard-text">{textMeaningTranslate}</p>
         </div>
-        <div className="WordCard-example">
+        <div className="word-card-example">
           <p
-            className="WordCard_text-example-en wordcard-text"
+            className="word-card_text-example-en wordcard-text"
             dangerouslySetInnerHTML={{ __html: `${textExample}` }}
           ></p>
-          <p className="WordCard_text-example-ru wordcard-text">{textExampleTranslate}</p>
+          <p className="word-card_text-example-ru wordcard-text">{textExampleTranslate}</p>
         </div>
       </div>
     </div>

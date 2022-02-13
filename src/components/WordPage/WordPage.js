@@ -23,8 +23,8 @@ export function WordPage() {
           ))}
         </div>
         <WordPageMenu
-          setGroup={setGroup}
           group={group}
+          setGroup={setGroup}
           setPage={setPage}
           page={page}
           minPage={MIN_PAGE}
