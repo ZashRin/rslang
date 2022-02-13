@@ -19,7 +19,7 @@ export const createUser = async (user) => {
 
   console.log(content);
 
-  loginUser(user);
+  return loginUser(user);
 };
 
 export const loginUser = async (user) => {
@@ -35,4 +35,5 @@ export const loginUser = async (user) => {
 
   console.log(content);
   saveUserData(content);
+  return content;
 };
