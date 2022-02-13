@@ -1,0 +1,138 @@
+.appAbout {
+  background: url(./assets/back.png);
+  background-size: auto;
+}
+
+.aboutWrapp {
+  max-width: 75%;
+  margin: 0 auto;
+}
+
+.about-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.appName {
+  width: 50%;
+  font-size: 45px;
+  font-style: italic;
+  color: black;
+}
+.appName_title {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.engl-img {
+  width: 50%;
+}
+
+.app_descript {
+  background: #D3F2FF;
+  height: 100%;
+  padding: 20px 0;
+}
+
+.app_descript__wrapp {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding-bottom: 20px;
+}
+
+.about-text {
+  font-size: 45px;
+  font-style: italic;
+  color: black;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 30px;
+  padding-top: 25px;
+}
+
+.separator {
+  width: 90%;
+  margin: 0 auto;
+  height: 3px;
+  background-color: black;
+  margin-bottom: 30px;
+}
+
+.advant_title {
+  font-size: 45px;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.advantCards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 900px;
+  margin: 10px auto;
+}
+
+.advantCard {
+  max-width: 364px;
+  padding: 75px 32px 50px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: rgb(0 0 0 / 15%) 0px 0px 10px;
+  background-color: rgb(255, 255, 255);
+}
+
+.book {
+  background: url(./assets/openbook.png) no-repeat;
+  background-position: 50% 10%;
+}
+
+.dictionary {
+  background: url(./assets/dictionnary.png) no-repeat;
+  background-position: 50% 10%;
+}
+
+.card_games {
+  background: url(./assets/joyst.png) no-repeat;
+  background-position: 50% 10%;
+}
+
+.card_stat {
+  background: url(./assets/stat.png) no-repeat;
+  background-position: 50% 10%;
+}
+
+.card_title {
+  margin: 20px 0px;
+  color: rgb(23, 43, 76);
+  font-size: 24px;
+}
+
+.card_info {
+  display: block;
+  margin: 8px 0px 0px;
+  text-align: center;
+  color: black;
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+@media screen and (max-width:1024px) {
+  .aboutWrapp {
+    max-width: 80%;
+    margin: 0 auto;
+  }
+  .about-info {
+    padding: 20px 0;
+    flex-direction: column;
+  }
+  .appName, .engl-img {
+    width: 100%;
+  }
+}
