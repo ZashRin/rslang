@@ -9,7 +9,7 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
     <div className="WordPage-menu">
       <div className="WordPage-menu-wrapper">
         <div className="WordPage-menu-links">
-          <i class="fa-solid fa-house-chimney"></i>
+          <i className="fa-solid fa-house-chimney"></i>
           <p className="WordPage-menu-links__game">Training</p>
         </div>
 

@@ -2,6 +2,11 @@ import React from 'react';
 import { BASE_LINK } from '../../constants/apiLinks';
 import './wordCard.css';
 
+function PlayAudio(audio) {
+  const AUDIO = new Audio(`${BASE_LINK}/${audio}`);
+  return AUDIO.play();
+}
+
 export function WordCard(obj) {
   const {
     word,
@@ -12,6 +17,7 @@ export function WordCard(obj) {
     textExampleTranslate,
     textExample,
     image,
+    audio,
     color,
   } = obj;
   return (
@@ -20,8 +26,13 @@ export function WordCard(obj) {
         <div className="WordCard-img" style={{ backgroundImage: `url(${BASE_LINK}/${image})` }}></div>
       </div>
       <div className="WordCard-content-right">
-        <div className="WordCard-word">
-          {word}- {transcription} - {wordTranslate}
+        <div className="word-card__header">
+          <div className="word-card__audio" onClick={() => PlayAudio(audio)}>
+            <i className="fa-solid fa-circle-play"></i>
+          </div>
+          <div className="WordCard-word">
+            {word}- {transcription} - {wordTranslate}
+          </div>
         </div>
         <div className="WordCard-meaning">
           <p

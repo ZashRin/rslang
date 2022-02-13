@@ -1,45 +1,67 @@
-.WordCard-container{
+.WordCard-container {
     display: flex;
     border-radius: 25px;
     border: 1px solid black;
     overflow: hidden;
     width: 45vw;
 }
-.WordCard-content-left{
+
+.WordCard-content-left {
     width: 40%;
 }
-.WordCard-content-right{
+
+.WordCard-content-right {
     width: 60%;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-.WordCard-word{
+
+.WordCard-word {
     display: flex;
     justify-content: right;
     font-size: 24px;
     font-weight: 600;
 }
-.wordcard-text{
+
+.wordcard-text {
     font-size: 18px;
     font-weight: 400;
 }
-.WordCard-img{
+
+.WordCard-img {
     width: 100%;
     height: 370px;
     border-radius: 25px;
     background-size: cover;
     background-position: center center;
 }
-@media screen and (max-width:1650px){
-    .WordCard-container{
+.word-card__header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.word-card__audio {
+    display: flex;
+}
+.fa-circle-play {
+    font-size: 24px;
+    color: black;
+}
+.fa-circle-play:hover {
+    cursor: pointer;
+    color: white;
+}
+
+@media screen and (max-width:1650px) {
+    .WordCard-container {
         width: 60vw;
     }
 }
-@media screen and (max-width:1650px){
-    .WordCard-img{
+
+@media screen and (max-width:1650px) {
+    .WordCard-img {
         height: 100%;
     }
 }
-
