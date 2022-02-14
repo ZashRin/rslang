@@ -14,13 +14,13 @@ export function LoginForm() {
       const userWords = getUserWords(result.userId, result.token);
       setContext({ ...context, id: result.userId, token: result.token, userWords: userWords });
     });
-  }, [name, email, password, setContext, context]);
+  }, [name, email, password]);
   const login = useCallback(() => {
     loginUser({ email, password }).then((result) => {
       const userWords = getUserWords(result.userId, result.token);
       setContext({ ...context, id: result.userId, token: result.token, userWords: userWords });
     });
-  }, [context, email, password, setContext]);
+  }, [email, password]);
   const validation = useRef(null);
   return (
     <div id="formContent" className="fadeInDown">

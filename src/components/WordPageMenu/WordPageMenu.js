@@ -1,19 +1,36 @@
-import React, { useContext } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useCallback, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { WordGroupSlider } from '../WordGroupSlider/WordGroupSlider';
 import './wordPageMenu.css';
 import { Context } from '../../Context/Context';
+import { getUserWords } from '../../utils/api';
 
 export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup, menu, setMenu, color, setColor }) {
   // eslint-disable-next-line no-unused-vars
   const [context, setContext] = useContext(Context);
+  const takeWordBook = useCallback(() => {
+    getUserWords(context.id, context.token);
+  }, [context, setContext]);
   return (
     <div className="WordPage-menu">
       <div className="WordPage-menu-wrapper">
         <div className="WordPage-menu-links">
           <i className="fa-solid fa-house-chimney"></i>
-          {context.id ? <p className="WordPage-menu-links__game">Словарь</p> : <></>}
+          {context.id ? (
+            <p
+              onClick={() => {
+                takeWordBook();
+                setContext({ ...context, currentPage: 'Сложные' });
+              }}
+              className="WordPage-menu-links__game"
+            >
+              Сложные
+            </p>
+          ) : (
+            <></>
+          )}
           <p className="WordPage-menu-links__game">Тренировка</p>
         </div>
         <div className="WordPage-menu-slider">

@@ -65,3 +65,5 @@ export const createUserWords = async (word, userId, wordId, token) => {
   console.log(response);
   return await response.json();
 };
+
+// const newA = Array.map((el) => getWordId(el.wordId));
