@@ -47,8 +47,9 @@ export const getUserWords = async (id, token) => {
     },
   });
   const result = await response.json();
-  console.log(result);
-  return result;
+  const userWords = await Promise.all(result.map((el) => getWordById(el.wordId)));
+  console.log(userWords);
+  return userWords;
 };
 export const createUserWords = async (word, userId, wordId, token) => {
   const response = await fetch(`${USERS_LINK}/${userId}/words/${wordId}`, {
@@ -61,6 +62,18 @@ export const createUserWords = async (word, userId, wordId, token) => {
       difficulty: 'hard',
       optional: word,
     }),
+  });
+  console.log(response);
+  return await response.json();
+};
+
+export const getWordById = async (wordId, token) => {
+  const response = await fetch(`${WORDS_LINK}/${wordId}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      // Authorization: `Bearer ${token}`,
+    },
   });
   console.log(response);
   return await response.json();

@@ -17,11 +17,16 @@ export function WordPage() {
   useEffect(() => {
     getWords(group, page).then(setWordsArray);
   }, [group, page]);
+
   return (
     <div className="BookPage-wrapper">
       <div className="BookPage-content">
         {context.currentPage === 'Сложные' ? (
-          <></>
+          <div className="BookPage">
+            {context?.userWordBook.map((el) => (
+              <WordCard color={color} key={el.id} {...el} />
+            ))}
+          </div>
         ) : (
           <div className="BookPage">
             {wordsArray?.map((el) => (
