@@ -29,6 +29,10 @@
     font-size: 18px;
     font-weight: 400;
 }
+.wordcard-text i {
+    color: purple;
+    font-weight: 700;
+}
 
 .word-card-img {
     width: 100%;

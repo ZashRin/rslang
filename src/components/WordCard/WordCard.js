@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BASE_LINK } from '../../constants/apiLinks';
 import './wordCard.css';
 import { playAudio } from '../../utils/audio';
+import { Context } from '../../Context/Context';
+import { createUserWords } from '../../utils/api';
 
 export function WordCard(obj) {
+  // eslint-disable-next-line no-unused-vars
+  const [context, setContext] = useContext(Context);
+
   const {
     word,
     wordTranslate,
@@ -23,6 +28,7 @@ export function WordCard(obj) {
       <div className="word-card-content-left">
         <div className="word-card-img" style={{ backgroundImage: `url(${BASE_LINK}/${image})` }}></div>
       </div>
+      <button onClick={() => createUserWords(obj, context.id, obj.id, context.token)}></button>
       <div className="word-card-content-right">
         <div className="word-card__header">
           <div className="word-card__audio" onClick={() => playAudio(audio, audioMeaning, audioExample)}>

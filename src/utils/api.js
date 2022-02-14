@@ -37,3 +37,31 @@ export const loginUser = async (user) => {
   saveUserData(content);
   return content;
 };
+
+export const getUserWords = async (id, token) => {
+  const response = await fetch(`${USERS_LINK}/${id}/words`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await response.json();
+  console.log(result);
+  return result;
+};
+export const createUserWords = async (word, userId, wordId, token) => {
+  const response = await fetch(`${USERS_LINK}/${userId}/words/${wordId}`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      difficulty: 'hard',
+      optional: word,
+    }),
+  });
+  console.log(response);
+  return await response.json();
+};
