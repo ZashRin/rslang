@@ -9,3 +9,10 @@ export const GROUP_MENU_COLORS = [
   '193 205 0 / 40%',
   '0 207 121 / 40%',
 ];
+
+export const PAGE_NAMES = {
+  MAIN: { id: 0, name: 'Главная' },
+  WORKBOOK: { id: 1, name: 'Учебник' },
+  DICTIONARY: { id: 2, name: 'Словарь' },
+  GAME: { id: 3, name: 'Игра' },
+};
