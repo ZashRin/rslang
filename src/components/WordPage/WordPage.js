@@ -23,7 +23,7 @@ export function WordPage() {
       <div className="BookPage-content">
         {context.currentPage === 'Сложные' ? (
           <div className="BookPage">
-            {context?.userWordBook.map((el) => (
+            {context?.userWords.map((el) => (
               <WordCard color={color} key={el.id} {...el} />
             ))}
           </div>

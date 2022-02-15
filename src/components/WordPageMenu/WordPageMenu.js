@@ -1,20 +1,26 @@
 /* eslint-disable no-unused-vars */
-import React, { useCallback, useContext, useState } from 'react';
+import React, { Fragment, useCallback, useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { WordGroupSlider } from '../WordGroupSlider/WordGroupSlider';
 import './wordPageMenu.css';
 import { Context } from '../../Context/Context';
 import { getUserWords } from '../../utils/api';
+import { CONDITION_BOOK_PAGE } from '../../constants/constants';
 
 export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup, menu, setMenu, color, setColor }) {
   // eslint-disable-next-line no-unused-vars
   const [context, setContext] = useContext(Context);
   const updateUserWordBook = useCallback(() => {
     getUserWords(context.id, context.token).then((result) =>
-      setContext({ ...context, userWordBook: result, currentPage: 'Сложные' })
+      setContext({
+        ...context,
+        userWords: result,
+        currentPage: CONDITION_BOOK_PAGE.currentValue,
+      })
     );
   }, [context, setContext]);
+
   return (
     <div className="WordPage-menu">
       <div className="WordPage-menu-wrapper">
@@ -23,11 +29,17 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
           {context.id ? (
             <p
               onClick={() => {
+                CONDITION_BOOK_PAGE.currentValue =
+                  CONDITION_BOOK_PAGE.currentValue === 'Учебник' ? 'Сложные' : 'Учебник';
                 updateUserWordBook();
               }}
               className="WordPage-menu-links__game"
             >
-              Сложные
+              {CONDITION_BOOK_PAGE.currentValue === 'Учебник' ? (
+                <Fragment>Сложные</Fragment>
+              ) : (
+                <Fragment>Учебник</Fragment>
+              )}
             </p>
           ) : (
             <></>

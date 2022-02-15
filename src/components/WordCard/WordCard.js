@@ -28,7 +28,11 @@ export function WordCard(obj) {
       <div className="word-card-content-left">
         <div className="word-card-img" style={{ backgroundImage: `url(${BASE_LINK}/${image})` }}></div>
       </div>
-      <button onClick={() => createUserWords(obj, context.id, obj.id, context.token)}></button>
+      <button
+        onClick={() => {
+          createUserWords(obj, context.id, obj.id, context.token);
+        }}
+      ></button>
       <div className="word-card-content-right">
         <div className="word-card__header">
           <div className="word-card__audio" onClick={() => playAudio(audio, audioMeaning, audioExample)}>
