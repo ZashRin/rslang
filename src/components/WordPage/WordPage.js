@@ -7,7 +7,6 @@ import { WordPageMenu } from '../WordPageMenu/WordPageMenu';
 import './wordPage.css';
 
 export function WordPage() {
-  const [wordsArray, setWordsArray] = useState();
   const [group, setGroup] = useState(0);
   const [page, setPage] = useState(0);
   const [menu, setMenu] = useState('hidden');
@@ -15,7 +14,7 @@ export function WordPage() {
   // eslint-disable-next-line no-unused-vars
   const [context, setContext] = useContext(Context);
   useEffect(() => {
-    getWords(group, page).then(setWordsArray);
+    getWords(group, page).then((result) => setContext({ ...context, words: result }));
   }, [group, page]);
 
   return (
@@ -24,13 +23,13 @@ export function WordPage() {
         {context.currentPage === 'Сложные' ? (
           <div className="BookPage">
             {context?.userWords.map((el) => (
-              <WordCard color={color} key={el.id} {...el} />
+              <WordCard color={color} key={el.id} wordObject={el} />
             ))}
           </div>
         ) : (
           <div className="BookPage">
-            {wordsArray?.map((el) => (
-              <WordCard color={color} key={el.id} {...el} />
+            {context.words?.map((el) => (
+              <WordCard color={color} key={el.id} wordObject={el} />
             ))}
           </div>
         )}

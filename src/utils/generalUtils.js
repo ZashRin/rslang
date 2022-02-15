@@ -4,9 +4,6 @@ export const validateEmail = (email) => {
   );
 };
 
-export const compareObj = (arr1, arr2) =>
-  arr1.filter((v) => {
-    return arr2.some((v2) => {
-      return v.id === v2.id;
-    });
-  });
+export const compareObj = (array, userWord) => {
+  array.forEach((el) => el.id === userWord);
+};

@@ -5,10 +5,9 @@ import { playAudio } from '../../utils/audio';
 import { Context } from '../../Context/Context';
 import { createUserWords } from '../../utils/api';
 
-export function WordCard(obj) {
+export function WordCard({ wordObject, color }) {
   // eslint-disable-next-line no-unused-vars
   const [context, setContext] = useContext(Context);
-
   const {
     word,
     wordTranslate,
@@ -21,18 +20,16 @@ export function WordCard(obj) {
     audio,
     audioMeaning,
     audioExample,
-    color,
-  } = obj;
+  } = wordObject;
+  const handleCardClick = () => {
+    createUserWords(wordObject, context.id, wordObject.id, context.token);
+  };
   return (
     <div className="word-card-container" style={{ backgroundColor: `rgba(${color})` }}>
       <div className="word-card-content-left">
         <div className="word-card-img" style={{ backgroundImage: `url(${BASE_LINK}/${image})` }}></div>
       </div>
-      <button
-        onClick={() => {
-          createUserWords(obj, context.id, obj.id, context.token);
-        }}
-      ></button>
+      <button onClick={handleCardClick}></button>
       <div className="word-card-content-right">
         <div className="word-card__header">
           <div className="word-card__audio" onClick={() => playAudio(audio, audioMeaning, audioExample)}>

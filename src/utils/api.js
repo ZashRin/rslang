@@ -1,9 +1,14 @@
 import { SIGNIN_LINK, USERS_LINK, WORDS_LINK } from '../constants/apiLinks';
+// import { compareObj } from './generalUtils';
 import { saveUserData } from './storage';
 
 export const getWords = async (group, page) => {
   const response = await fetch(`${WORDS_LINK}?group=${group ? group : 0}&page=${page ? page : 0}`);
-  return await response.json();
+  const result = await response.json();
+  return result.map((el) => {
+    el.selected = false;
+    return el;
+  });
 };
 
 export const createUser = async (user) => {
@@ -51,6 +56,7 @@ export const getUserWords = async (id, token) => {
   console.log(userWords);
   return userWords;
 };
+
 export const createUserWords = async (word, userId, wordId, token) => {
   const response = await fetch(`${USERS_LINK}/${userId}/words/${wordId}`, {
     method: 'POST',
@@ -63,7 +69,6 @@ export const createUserWords = async (word, userId, wordId, token) => {
       optional: word,
     }),
   });
-  console.log(response);
   return await response.json();
 };
 
@@ -72,11 +77,31 @@ export const getWordById = async (wordId, token) => {
     method: 'GET',
     headers: {
       Accept: 'application/json',
-      // Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
-  console.log(response);
   return await response.json();
 };
+
+export const getAggregatedWords = async (id, token) => {
+  const response = await fetch(`${USERS_LINK}/${id}/aggregatedWords`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await response.json();
+  const { paginatedResults } = result[0];
+  console.log(paginatedResults);
+  return paginatedResults;
+};
+// compareObj(
+//   getWords(0, 0),
+//   getAggregatedWords(
+//     '620a478ad64f070016d1f652',
+//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMGE0NzhhZDY0ZjA3MDAxNmQxZjY1MiIsImlhdCI6MTY0NDk2MzMwMCwiZXhwIjoxNjQ0OTc3NzAwfQ.gR-BEoOHLFEb10samtBA3x3LMj4iwjUdX6o9_ip2QEY'
+//   )
+// );
 
 // const newA = Array.map((el) => getWordId(el.wordId));
