@@ -23,6 +23,13 @@
   color: rgb(255, 40, 40);
 }
 
+.header_logo {
+  background: url(./logo-blue.png);
+  background-size: 100% 107%;
+  width: 24%;
+  height: 70px;
+}
+
 .header_nav {
   display: flex;
   flex-direction: row;
@@ -50,13 +57,17 @@
 }
 
 .autorisation:hover {
-  border: 1px solid rgb(255, 255, 255);
+  box-sizing: border-box;
+  border: 2px solid rgb(255, 255, 255);
 }
 
 .login_text {
   font-size: 25px;
   color: white;
   margin-bottom: 0px;
+}
+.login_text:hover {
+  color: rgb(10, 0, 151);
 }
 
 @media screen and (max-width:1440px) {
