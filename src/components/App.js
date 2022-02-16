@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Context } from '../Context/Context.js';
-// import { LoginForm } from './LoginForm/LoginForm.js';
 import { Header } from './Header/Header.js';
 import { WordPage } from './WordPage/WordPage';
-// import { StartPage } from '../StartPage/startPage';
 import { AppDescription } from './AppDescription/AppDescription';
 import { PAGE_NAMES } from '../constants/constants.js';
 
