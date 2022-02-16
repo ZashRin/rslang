@@ -7,7 +7,6 @@ import { createUserWords, deleteUserWord } from '../../utils/api';
 import { checkWordIsHard } from '../../utils/generalUtils';
 
 export function WordCard({ wordObject, color, hard }) {
-  // eslint-disable-next-line no-unused-vars
   const [context, setContext] = useContext(Context);
   const {
     word,
@@ -33,7 +32,6 @@ export function WordCard({ wordObject, color, hard }) {
       array.splice(index, 1);
       setContext({ ...context, userWords: array });
     }
-    console.log(context.userWords);
   };
   return (
     <div

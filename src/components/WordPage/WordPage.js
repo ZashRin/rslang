@@ -11,16 +11,10 @@ export function WordPage() {
   const [page, setPage] = useState(0);
   const [menu, setMenu] = useState('hidden');
   const [color, setColor] = useState('255 19 32 / 40%');
-  // eslint-disable-next-line no-unused-vars
   const [context, setContext] = useContext(Context);
   useEffect(() => {
     getWords(group, page).then((result) => setContext({ ...context, words: result }));
-  }, [group, page]);
-  // useEffect(() => {
-  //   getUserWords(context.id, context.token).then((result) =>
-  //     setContext({ ...context, userWords: result, currentPage: CONDITION_BOOK_PAGE.currentValue })
-  //   );
-  // }, [group, page]);
+  }, [group, page, context, setContext]);
 
   return (
     <div className="BookPage-wrapper">

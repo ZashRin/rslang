@@ -1,5 +1,4 @@
 import { SIGNIN_LINK, USERS_LINK, WORDS_LINK } from '../constants/apiLinks';
-// import { compareObj } from './generalUtils';
 import { saveUserData } from './storage';
 
 export const getWords = async (group, page) => {
@@ -38,7 +37,6 @@ export const loginUser = async (user) => {
   });
   const content = await rawResponse.json();
 
-  console.log(content);
   saveUserData(content);
   return content;
 };
@@ -83,19 +81,18 @@ export const getWordById = async (wordId, token) => {
   return await response.json();
 };
 
-// export const getAggregatedWords = async (id, token) => {
-//   const response = await fetch(`${USERS_LINK}/${id}/aggregatedWords`, {
-//     method: 'GET',
-//     headers: {
-//       Accept: 'application/json',
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-//   const result = await response.json();
-//   const { paginatedResults } = result[0];
-//   console.log(paginatedResults);
-//   return paginatedResults;
-// };
+export const getAggregatedWords = async (id, token) => {
+  const response = await fetch(`${USERS_LINK}/${id}/aggregatedWords`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await response.json();
+  const { paginatedResults } = result[0];
+  return paginatedResults;
+};
 
 export const deleteUserWord = async (id, wordId, token) => {
   const response = await fetch(`${USERS_LINK}/${id}/words/${wordId}`, {
@@ -108,12 +105,3 @@ export const deleteUserWord = async (id, wordId, token) => {
   const result = await response.json();
   return result;
 };
-// compareObj(
-//   getWords(0, 0),
-//   getAggregatedWords(
-//     '620a478ad64f070016d1f652',
-//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMGE0NzhhZDY0ZjA3MDAxNmQxZjY1MiIsImlhdCI6MTY0NDk2MzMwMCwiZXhwIjoxNjQ0OTc3NzAwfQ.gR-BEoOHLFEb10samtBA3x3LMj4iwjUdX6o9_ip2QEY'
-//   )
-// );
-
-// const newA = Array.map((el) => getWordId(el.wordId));
