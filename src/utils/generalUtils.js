@@ -4,6 +4,8 @@ export const validateEmail = (email) => {
   );
 };
 
-export const compareObj = (array, userWord) => {
-  array.forEach((el) => el.id === userWord);
+export const checkWordIsHard = (array, userWord) => {
+  if (array === undefined) return false;
+  const result = array.some((el) => el.id === userWord);
+  return result;
 };

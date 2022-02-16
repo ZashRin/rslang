@@ -16,6 +16,11 @@ export function WordPage() {
   useEffect(() => {
     getWords(group, page).then((result) => setContext({ ...context, words: result }));
   }, [group, page]);
+  // useEffect(() => {
+  //   getUserWords(context.id, context.token).then((result) =>
+  //     setContext({ ...context, userWords: result, currentPage: CONDITION_BOOK_PAGE.currentValue })
+  //   );
+  // }, [group, page]);
 
   return (
     <div className="BookPage-wrapper">
@@ -23,7 +28,7 @@ export function WordPage() {
         {context.currentPage === 'Сложные' ? (
           <div className="BookPage">
             {context?.userWords.map((el) => (
-              <WordCard color={color} key={el.id} wordObject={el} />
+              <WordCard color={color} key={el.id} wordObject={el} hard={true} />
             ))}
           </div>
         ) : (

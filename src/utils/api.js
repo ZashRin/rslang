@@ -53,7 +53,7 @@ export const getUserWords = async (id, token) => {
   });
   const result = await response.json();
   const userWords = await Promise.all(result.map((el) => getWordById(el.wordId)));
-  console.log(userWords);
+
   return userWords;
 };
 
@@ -83,18 +83,30 @@ export const getWordById = async (wordId, token) => {
   return await response.json();
 };
 
-export const getAggregatedWords = async (id, token) => {
-  const response = await fetch(`${USERS_LINK}/${id}/aggregatedWords`, {
-    method: 'GET',
+// export const getAggregatedWords = async (id, token) => {
+//   const response = await fetch(`${USERS_LINK}/${id}/aggregatedWords`, {
+//     method: 'GET',
+//     headers: {
+//       Accept: 'application/json',
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+//   const result = await response.json();
+//   const { paginatedResults } = result[0];
+//   console.log(paginatedResults);
+//   return paginatedResults;
+// };
+
+export const deleteUserWord = async (id, wordId, token) => {
+  const response = await fetch(`${USERS_LINK}/${id}/words/${wordId}`, {
+    method: 'DELETE',
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${token}`,
     },
   });
   const result = await response.json();
-  const { paginatedResults } = result[0];
-  console.log(paginatedResults);
-  return paginatedResults;
+  return result;
 };
 // compareObj(
 //   getWords(0, 0),
