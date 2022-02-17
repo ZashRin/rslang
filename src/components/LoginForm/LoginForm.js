@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState, useContext } from 'react';
 import { Context } from '../../Context/Context';
-import { createUser, loginUser } from '../../utils/api';
+import { createUser, getUserWords, loginUser } from '../../utils/api';
 import { validateEmail } from '../../utils/generalUtils';
 import './styles.css';
 
@@ -9,12 +9,16 @@ export function LoginForm() {
   const name = email;
   const [password, inputPswd] = useState();
   const [context, setContext] = useContext(Context);
-  const crUsr = useCallback(() => {
-    createUser({ name, email, password }).then((result) => setContext({ ...context, id: result.userId }));
-  }, [name, email, password, setContext, context]);
-  const login = useCallback(() => {
-    loginUser({ email, password }).then((result) => setContext({ ...context, id: result.userId }));
-  }, [context, email, password, setContext]);
+  const crUsr = useCallback(async () => {
+    const result = await createUser({ name, email, password });
+    const userWords = await getUserWords(result.userId, result.token);
+    setContext({ ...context, id: result.userId, token: result.token, userWords: userWords });
+  }, [name, email, password, context, setContext]);
+  const login = useCallback(async () => {
+    const result = await loginUser({ email, password });
+    const userWords = await getUserWords(result.userId, result.token);
+    setContext({ ...context, id: result.userId, token: result.token, userWords: userWords });
+  }, [email, password, context, setContext]);
   const validation = useRef(null);
   return (
     <div id="formContent" className="fadeInDown">

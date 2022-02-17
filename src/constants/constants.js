@@ -9,6 +9,7 @@ export const GROUP_MENU_COLORS = [
   '193 205 0 / 40%',
   '0 207 121 / 40%',
 ];
+export const CONDITION_BOOK_PAGE = { currentValue: 'Учебник' };
 
 export const PAGE_NAMES = {
   MAIN: { id: 0, name: 'Главная' },
