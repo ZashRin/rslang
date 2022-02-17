@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import { MAX_PAGE, MIN_PAGE, PAGE_NAMES } from '../../constants/constants';
 import { Context } from '../../Context/Context';
@@ -12,8 +13,9 @@ export function WordPage() {
   const [menu, setMenu] = useState('hidden');
   const [color, setColor] = useState('255 19 32 / 40%');
   const [context, setContext] = useContext(Context);
-  useEffect(() => {
-    getWords(group, page).then((result) => setContext({ ...context, words: result }));
+  useEffect(async () => {
+    const result = await getWords(group, page);
+    await setContext({ ...context, words: result });
   }, [group, page, setContext]);
 
   return (
