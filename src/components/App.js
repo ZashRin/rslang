@@ -5,7 +5,6 @@ import { WordPage } from './WordPage/WordPage';
 import { AppDescription } from './AppDescription/AppDescription';
 import { PAGE_NAMES } from '../constants/constants.js';
 import { LoginForm } from './LoginForm/LoginForm.js';
-// import { LoginForm } from './LoginForm/LoginForm.js';
 
 export default function App() {
   const initialState = { currentPage: PAGE_NAMES.MAIN.name };
