@@ -9,12 +9,22 @@ export function LoginForm() {
   const name = email;
   const [password, inputPswd] = useState();
   const [context, setContext] = useContext(Context);
-  const crUsr = useCallback(() => {
-    createUser({ name, email, password }).then((result) => setContext({ ...context, id: result.userId }));
-  }, [name, email, password, setContext, context]);
-  const login = useCallback(() => {
-    loginUser({ email, password }).then((result) => setContext({ ...context, id: result.userId }));
-  }, [context, email, password, setContext]);
+  const crUsr = useCallback(async () => {
+    const result = await createUser({ name, email, password });
+    setContext({ ...context, id: result.userId, token: result.token });
+  }, [name, email, password, context, setContext]);
+  const login = useCallback(async () => {
+    const result = await loginUser({ email, password });
+    setContext({
+      ...context,
+      id: result.userId,
+      token: result.token,
+      name: result.name,
+      authenticated: true,
+      email: email,
+      password: password,
+    });
+  }, [email, password, context, setContext]);
   const validation = useRef(null);
   return (
     <div id="formContent" className="fadeInDown">
