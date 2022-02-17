@@ -126,7 +126,6 @@
 @media screen and (max-width:1024px) {
   .aboutWrapp {
     max-width: 80%;
-    margin: 0 auto;
   }
   .about-info {
     padding: 20px 0;
@@ -134,5 +133,11 @@
   }
   .appName, .engl-img {
     width: 100%;
+  }
+}
+
+@media screen and (max-width:768px) {
+  .aboutWrapp {
+    max-width: 90%;
   }
 }
