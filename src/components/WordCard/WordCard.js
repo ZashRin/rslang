@@ -33,10 +33,16 @@ export function WordCard({ wordObject, color, hard }) {
       setContext({ ...context, userWords: array });
     }
   };
+  const isHardFilter = {
+    backgroundColor: 'rgb(246 255 19 / 40%)',
+    filter: 'saturate(90%)',
+    boxShadow:
+      'rgb(229 226 0) 0px 0px 5px 6px, rgb(0 0 0 / 30%) 0px 5px 3px 3px, rgb(0 0 0 / 25%) 0px 4px 6px 1px, rgb(0 0 0 / 20%) 0px 2px 8px 2px, rgb(0 0 0 / 15%) 0px 4px 16px 4px',
+  };
   return (
     <div
       className="word-card-container"
-      style={{ backgroundColor: checkWordIsHard(context.userWords, wordObject.id) ? 'red' : `rgba(${color})` }}
+      style={checkWordIsHard(context.userWords, wordObject.id) ? isHardFilter : { backgroundColor: `rgba(${color})` }}
     >
       <div className="word-card-content-left">
         <div className="word-card-img" style={{ backgroundImage: `url(${BASE_LINK}/${image})` }}></div>

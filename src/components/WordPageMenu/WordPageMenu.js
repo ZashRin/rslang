@@ -6,19 +6,14 @@ import { WordGroupSlider } from '../WordGroupSlider/WordGroupSlider';
 import './wordPageMenu.css';
 import { Context } from '../../Context/Context';
 import { getUserWords } from '../../utils/api';
-import { CONDITION_BOOK_PAGE } from '../../constants/constants';
+import { CONDITION_BOOK_PAGE, PAGE_NAMES } from '../../constants/constants';
 
 export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup, menu, setMenu, color, setColor }) {
   // eslint-disable-next-line no-unused-vars
   const [context, setContext] = useContext(Context);
-  const updateUserWordBook = useCallback(() => {
-    getUserWords(context.id, context.token).then((result) =>
-      setContext({
-        ...context,
-        userWords: result,
-        currentPage: CONDITION_BOOK_PAGE.currentValue,
-      })
-    );
+  const updateUserWordBook = useCallback(async () => {
+    const result = await getUserWords(context.id, context.token);
+    setContext({ ...context, userWords: result, currentPage: CONDITION_BOOK_PAGE.currentValue });
   }, [context, setContext]);
 
   return (
@@ -30,13 +25,15 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
             <p
               onClick={() => {
                 CONDITION_BOOK_PAGE.currentValue =
-                  CONDITION_BOOK_PAGE.currentValue === 'Учебник' ? 'Сложные' : 'Учебник';
+                  CONDITION_BOOK_PAGE.currentValue === PAGE_NAMES.WORKBOOK.name
+                    ? PAGE_NAMES.DICTIONARY.name
+                    : PAGE_NAMES.WORKBOOK.name;
                 updateUserWordBook();
               }}
               className="WordPage-menu-links__game"
             >
               {CONDITION_BOOK_PAGE.currentValue === 'Учебник' ? (
-                <Fragment>Сложные</Fragment>
+                <Fragment>Словарь</Fragment>
               ) : (
                 <Fragment>Учебник</Fragment>
               )}

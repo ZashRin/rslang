@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { MAX_PAGE, MIN_PAGE } from '../../constants/constants';
+import { MAX_PAGE, MIN_PAGE, PAGE_NAMES } from '../../constants/constants';
 import { Context } from '../../Context/Context';
 import { getWords } from '../../utils/api';
 import { WordCard } from '../WordCard/WordCard';
@@ -14,25 +14,24 @@ export function WordPage() {
   const [context, setContext] = useContext(Context);
   useEffect(() => {
     getWords(group, page).then((result) => setContext({ ...context, words: result }));
-  }, [group, page, context, setContext]);
+  }, [group, page, setContext]);
 
   return (
     <div className="BookPage-wrapper">
       <div className="BookPage-content">
-        {context.currentPage === 'Сложные' ? (
-          <div className="BookPage">
-            {context?.userWords.map((el) => (
-              <WordCard color={color} key={el.id} wordObject={el} hard={true} />
-            ))}
-          </div>
-        ) : (
+        {context.currentPage === PAGE_NAMES.WORKBOOK.name ? (
           <div className="BookPage">
             {context.words?.map((el) => (
               <WordCard color={color} key={el.id} wordObject={el} />
             ))}
           </div>
+        ) : (
+          <div className="BookPage">
+            {context?.userWords.map((el) => (
+              <WordCard color={color} key={el.id} wordObject={el} hard={true} />
+            ))}
+          </div>
         )}
-
         <WordPageMenu
           group={group}
           setGroup={setGroup}
