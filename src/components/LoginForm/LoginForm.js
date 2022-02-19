@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState, useContext } from 'react';
 import { Context } from '../../Context/Context';
-import { createUser, loginUser } from '../../utils/api';
+import { createUser, getUserWords, loginUser } from '../../utils/api';
 import { validateEmail } from '../../utils/generalUtils';
 import './styles.css';
 
@@ -9,13 +9,50 @@ export function LoginForm() {
   const name = email;
   const [password, inputPswd] = useState();
   const [context, setContext] = useContext(Context);
-  const crUsr = useCallback(() => {
-    createUser({ name, email, password }).then((result) => setContext({ ...context, id: result.userId }));
-  }, [name, email, password, setContext, context]);
-  const login = useCallback(() => {
-    loginUser({ email, password }).then((result) => setContext({ ...context, id: result.userId }));
-  }, [context, email, password, setContext]);
+  const crUsr = useCallback(async () => {
+    const result = await createUser({ name, email, password });
+    const userWords = await getUserWords(result.userId, result.token);
+    setContext({ ...context, id: result.userId, token: result.token, userWords: userWords, modalIsOpen: false });
+  }, [name, email, password, context, setContext]);
+  const login = useCallback(async () => {
+    const result = await loginUser({ email, password });
+    const userWords = await getUserWords(result.userId, result.token);
+    setContext({
+      ...context,
+      id: result.userId,
+      token: result.token,
+      name: result.name,
+      authenticated: true,
+      email: email,
+      password: password,
+      userWords: userWords,
+      modalIsOpen: false,
+    });
+  }, [email, password, context, setContext]);
   const validation = useRef(null);
+
+  const handleInput = (e) => {
+    e.preventDefault();
+    if (!validateEmail(email)) {
+      validation.current.innerText = 'Невалидный Email';
+      return;
+    }
+    if (password.length < 8) {
+      validation.current.innerText = 'Минимальная длина пароля - 8 символов';
+      return;
+    }
+  };
+
+  const loginClick = (e) => {
+    handleInput(e);
+    login();
+  };
+
+  const createClick = (e) => {
+    handleInput(e);
+    crUsr();
+  };
+
   return (
     <div id="formContent" className="fadeInDown">
       <form>
@@ -37,41 +74,8 @@ export function LoginForm() {
         ></input>
         <p ref={validation} className="validation fadeIn third"></p>
         <div className="btnCont fadeIn third">
-          <input
-            type="submit"
-            className="fadeIn third"
-            value="Войти"
-            onClick={(e) => {
-              e.preventDefault();
-              if (!validateEmail(email)) {
-                validation.current.innerText = 'Невалидный Email';
-                return;
-              }
-              if (password.length < 8) {
-                validation.current.innerText = 'Минимальная длина пароля - 8 символов';
-                return;
-              }
-              login();
-            }}
-          ></input>
-          <input
-            type="submit"
-            className="fadeIn third"
-            id="signUp"
-            value="Регистрация"
-            onClick={(e) => {
-              e.preventDefault();
-              if (!validateEmail(email)) {
-                validation.current.innerText = 'Невалидный Email';
-                return;
-              }
-              if (password.length < 8) {
-                validation.current.innerText = 'Минимальная длина пароля - 8 символов';
-                return;
-              }
-              crUsr();
-            }}
-          ></input>
+          <input type="submit" className="fadeIn third" value="Войти" onClick={loginClick}></input>
+          <input type="submit" className="fadeIn third" id="signUp" value="Регистрация" onClick={createClick}></input>
         </div>
       </form>
     </div>

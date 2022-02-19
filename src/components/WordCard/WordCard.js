@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BASE_LINK } from '../../constants/apiLinks';
 import './wordCard.css';
 import { playAudio } from '../../utils/audio';
+import { Context } from '../../Context/Context';
+import { createUserWords, deleteUserWord } from '../../utils/api';
+import { checkWordIsHard } from '../../utils/generalUtils';
 
-export function WordCard(obj) {
+export function WordCard({ wordObject, color, hard }) {
+  const [context, setContext] = useContext(Context);
   const {
     word,
     wordTranslate,
@@ -16,13 +20,34 @@ export function WordCard(obj) {
     audio,
     audioMeaning,
     audioExample,
-    color,
-  } = obj;
+  } = wordObject;
+  const handleCardClick = () => {
+    if (!checkWordIsHard(context.userWords, wordObject.id)) {
+      createUserWords(wordObject, context.id, wordObject.id, context.token);
+      setContext({ ...context, userWords: [...context.userWords, { ...wordObject }] });
+    } else {
+      deleteUserWord(context.id, wordObject.id, context.token);
+      const index = context.userWords.findIndex((el) => el.id === wordObject.id);
+      const array = [...context.userWords];
+      array.splice(index, 1);
+      setContext({ ...context, userWords: array });
+    }
+  };
+  const isHardFilter = {
+    backgroundColor: 'rgb(246 255 19 / 40%)',
+    filter: 'saturate(90%)',
+    boxShadow:
+      'rgb(229 226 0) 0px 0px 5px 6px, rgb(0 0 0 / 30%) 0px 5px 3px 3px, rgb(0 0 0 / 25%) 0px 4px 6px 1px, rgb(0 0 0 / 20%) 0px 2px 8px 2px, rgb(0 0 0 / 15%) 0px 4px 16px 4px',
+  };
   return (
-    <div className="word-card-container" style={{ backgroundColor: `rgba(${color})` }}>
+    <div
+      className="word-card-container"
+      style={checkWordIsHard(context.userWords, wordObject.id) ? isHardFilter : { backgroundColor: `rgba(${color})` }}
+    >
       <div className="word-card-content-left">
         <div className="word-card-img" style={{ backgroundImage: `url(${BASE_LINK}/${image})` }}></div>
       </div>
+      <button onClick={handleCardClick}></button>
       <div className="word-card-content-right">
         <div className="word-card__header">
           <div className="word-card__audio" onClick={() => playAudio(audio, audioMeaning, audioExample)}>

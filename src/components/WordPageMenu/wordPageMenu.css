@@ -55,6 +55,7 @@
 }
 .WordPage-menu-links__game{
     font-size: 22px;
+    margin: 0px;
 }
 .WordPage-menu-links__game:hover{
     cursor: pointer;
