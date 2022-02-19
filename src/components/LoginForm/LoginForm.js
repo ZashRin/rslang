@@ -12,7 +12,7 @@ export function LoginForm() {
   const crUsr = useCallback(async () => {
     const result = await createUser({ name, email, password });
     const userWords = await getUserWords(result.userId, result.token);
-    setContext({ ...context, id: result.userId, token: result.token, userWords: userWords });
+    setContext({ ...context, id: result.userId, token: result.token, userWords: userWords, modalIsOpen: false });
   }, [name, email, password, context, setContext]);
   const login = useCallback(async () => {
     const result = await loginUser({ email, password });
@@ -26,6 +26,7 @@ export function LoginForm() {
       email: email,
       password: password,
       userWords: userWords,
+      modalIsOpen: false,
     });
   }, [email, password, context, setContext]);
   const validation = useRef(null);
