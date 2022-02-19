@@ -27,6 +27,20 @@ export function StatPage() {
   }, [authenticated, getStat]);
 
   const newName = useRef(null);
+
+  const logout = () => {
+    clearStorage();
+    setContext({ ...context, id: null, token: null, name: null, authenticated: false });
+  };
+
+  const updateUserClick = () => {
+    updateUser(context.id, context.token, {
+      email: context.email,
+      password: context.password,
+      name: newName.current.value,
+    });
+  };
+
   return (
     <>
       <div className="userControls">
@@ -38,26 +52,10 @@ export function StatPage() {
           className="userControlsInput"
           defaultValue={context.authenticated ? context.name : ''}
         ></input>
-        <button
-          className="userControlsBtn"
-          onClick={() => {
-            updateUser(context.id, context.token, {
-              email: context.email,
-              password: context.password,
-              name: newName.current.value,
-            });
-          }}
-        >
+        <button className="userControlsBtn" onClick={updateUserClick}>
           Сохранить
         </button>
-        <a
-          href="/"
-          className="closePage logout"
-          onClick={() => {
-            clearStorage();
-            setContext({ ...context, id: null, token: null, name: null, authenticated: false });
-          }}
-        >
+        <a href="/" className="closePage logout" onClick={logout}>
           Выйти
         </a>
       </div>

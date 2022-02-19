@@ -29,6 +29,29 @@ export function LoginForm() {
     });
   }, [email, password, context, setContext]);
   const validation = useRef(null);
+
+  const handleInput = (e) => {
+    e.preventDefault();
+    if (!validateEmail(email)) {
+      validation.current.innerText = 'Невалидный Email';
+      return;
+    }
+    if (password.length < 8) {
+      validation.current.innerText = 'Минимальная длина пароля - 8 символов';
+      return;
+    }
+  };
+
+  const loginClick = (e) => {
+    handleInput(e);
+    login();
+  };
+
+  const createClick = (e) => {
+    handleInput(e);
+    crUsr();
+  };
+
   return (
     <div id="formContent" className="fadeInDown">
       <form>
@@ -50,41 +73,8 @@ export function LoginForm() {
         ></input>
         <p ref={validation} className="validation fadeIn third"></p>
         <div className="btnCont fadeIn third">
-          <input
-            type="submit"
-            className="fadeIn third"
-            value="Войти"
-            onClick={(e) => {
-              e.preventDefault();
-              if (!validateEmail(email)) {
-                validation.current.innerText = 'Невалидный Email';
-                return;
-              }
-              if (password.length < 8) {
-                validation.current.innerText = 'Минимальная длина пароля - 8 символов';
-                return;
-              }
-              login();
-            }}
-          ></input>
-          <input
-            type="submit"
-            className="fadeIn third"
-            id="signUp"
-            value="Регистрация"
-            onClick={(e) => {
-              e.preventDefault();
-              if (!validateEmail(email)) {
-                validation.current.innerText = 'Невалидный Email';
-                return;
-              }
-              if (password.length < 8) {
-                validation.current.innerText = 'Минимальная длина пароля - 8 символов';
-                return;
-              }
-              crUsr();
-            }}
-          ></input>
+          <input type="submit" className="fadeIn third" value="Войти" onClick={loginClick}></input>
+          <input type="submit" className="fadeIn third" id="signUp" value="Регистрация" onClick={createClick}></input>
         </div>
       </form>
     </div>
