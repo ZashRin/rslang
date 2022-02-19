@@ -14,9 +14,11 @@ export function Header() {
   function openModal() {
     setContext({ ...context, modalIsOpen: true });
   }
+
   function closeModal() {
     setContext({ ...context, modalIsOpen: false });
   }
+
   const customStyles = {
     content: {
       top: '50%',
