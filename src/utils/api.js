@@ -105,3 +105,69 @@ export const deleteUserWord = async (id, wordId, token) => {
   const result = await response.json();
   return result;
 };
+
+export const getUserStat = async (id, token) => {
+  const response = await fetch(`${USERS_LINK}/${id}/statistics`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await response.json();
+  return result;
+};
+
+export const updateUserStat = async (id, token, wordCount) => {
+  const response = await fetch(`${USERS_LINK}/${id}/statistics`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ learnedWords: wordCount }),
+  });
+  const result = await response.json();
+  return result;
+};
+
+export const getUserSettings = async (id, token) => {
+  const response = await fetch(`${USERS_LINK}/${id}/settings`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const result = await response.json();
+  return result;
+};
+
+export const updateUserSettings = async (id, token, wordCount) => {
+  const response = await fetch(`${USERS_LINK}/${id}/settings`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ wordsPerDay: wordCount }),
+  });
+  const result = await response.json();
+  return result;
+};
+
+export const updateUser = async (id, token, data) => {
+  const response = await fetch(`${USERS_LINK}/${id}`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  const result = await response.json();
+  return result;
+};
