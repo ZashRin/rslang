@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState, useContext } from 'react';
 import { Context } from '../../Context/Context';
-import { createUser, loginUser } from '../../utils/api';
+import { createUser, getUserWords, loginUser } from '../../utils/api';
 import { validateEmail } from '../../utils/generalUtils';
 import './styles.css';
 
@@ -11,10 +11,12 @@ export function LoginForm() {
   const [context, setContext] = useContext(Context);
   const crUsr = useCallback(async () => {
     const result = await createUser({ name, email, password });
-    setContext({ ...context, id: result.userId, token: result.token });
+    const userWords = await getUserWords(result.userId, result.token);
+    setContext({ ...context, id: result.userId, token: result.token, userWords: userWords });
   }, [name, email, password, context, setContext]);
   const login = useCallback(async () => {
     const result = await loginUser({ email, password });
+    const userWords = await getUserWords(result.userId, result.token);
     setContext({
       ...context,
       id: result.userId,
@@ -23,6 +25,7 @@ export function LoginForm() {
       authenticated: true,
       email: email,
       password: password,
+      userWords: userWords,
     });
   }, [email, password, context, setContext]);
   const validation = useRef(null);

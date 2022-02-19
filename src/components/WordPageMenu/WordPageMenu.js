@@ -1,18 +1,48 @@
-import React from 'react';
-import './wordPageMenu.css';
+/* eslint-disable no-unused-vars */
+import React, { Fragment, useCallback, useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { WordGroupSlider } from '../WordGroupSlider/WordGroupSlider';
+import './wordPageMenu.css';
+import { Context } from '../../Context/Context';
+import { getUserWords } from '../../utils/api';
+import { CONDITION_BOOK_PAGE, PAGE_NAMES } from '../../constants/constants';
 
 export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup, menu, setMenu, color, setColor }) {
+  // eslint-disable-next-line no-unused-vars
+  const [context, setContext] = useContext(Context);
+  const updateUserWordBook = useCallback(async () => {
+    const result = await getUserWords(context.id, context.token);
+    setContext({ ...context, userWords: result, currentPage: CONDITION_BOOK_PAGE.currentValue });
+  }, [context, setContext]);
+
   return (
     <div className="WordPage-menu">
       <div className="WordPage-menu-wrapper">
         <div className="WordPage-menu-links">
           <i className="fa-solid fa-house-chimney"></i>
-          <p className="WordPage-menu-links__game">Training</p>
+          {context.id ? (
+            <p
+              onClick={() => {
+                CONDITION_BOOK_PAGE.currentValue =
+                  CONDITION_BOOK_PAGE.currentValue === PAGE_NAMES.WORKBOOK.name
+                    ? PAGE_NAMES.DICTIONARY.name
+                    : PAGE_NAMES.WORKBOOK.name;
+                updateUserWordBook();
+              }}
+              className="WordPage-menu-links__game"
+            >
+              {CONDITION_BOOK_PAGE.currentValue === 'Учебник' ? (
+                <Fragment>Словарь</Fragment>
+              ) : (
+                <Fragment>Учебник</Fragment>
+              )}
+            </p>
+          ) : (
+            <></>
+          )}
+          <p className="WordPage-menu-links__game">Тренировка</p>
         </div>
-
         <div className="WordPage-menu-slider">
           <Button
             variant="info"
