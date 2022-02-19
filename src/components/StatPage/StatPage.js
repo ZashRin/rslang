@@ -15,11 +15,6 @@ export function StatPage() {
       wordsPerDay: userWordsPerDay.wordsPerDay,
     }));
   }, [id, token, setContext]);
-  // eslint-disable-next-line no-unused-vars
-  const setStat = useCallback(async () => {
-    await updateUserStat(context.id, context.token, 3);
-    await updateUserSettings(context.id, context.token, 1);
-  }, [context.id, context.token]);
   useEffect(() => {
     if (authenticated) {
       getStat();
