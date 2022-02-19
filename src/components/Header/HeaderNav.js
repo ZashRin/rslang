@@ -21,8 +21,8 @@ export function NavMenu() {
   };
   return (
     <nav className="header_nav">
-      {Object.keys(PAGE_NAMES).map((page) => (
-        <NavLink page={PAGE_NAMES[page]} handlePageChange={setPage} />
+      {Object.keys(PAGE_NAMES).map((page, index) => (
+        <NavLink page={PAGE_NAMES[page]} handlePageChange={setPage} key={index} />
       ))}
     </nav>
   );
