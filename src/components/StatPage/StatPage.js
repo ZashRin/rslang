@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { Context } from '../../Context/Context';
-import { getUserSettings, getUserStat, updateUser, updateUserSettings, updateUserStat } from '../../utils/api';
+import { getUserSettings, getUserStat, updateUser } from '../../utils/api';
 import { clearStorage } from '../../utils/storage';
 
 export function StatPage() {
