@@ -7,6 +7,7 @@ import { PAGE_NAMES } from '../constants/constants.js';
 import { StartPage } from './StartPage/StartPage.js';
 import { Footer } from './Footer/Footer';
 import { getAuth, getName, getToken, getUserId } from '../utils/storage.js';
+import { AudioGame } from './AudioGame/AudioGame.js';
 
 export default function App() {
   const id = getUserId();
@@ -19,10 +20,25 @@ export default function App() {
   return (
     <Context.Provider value={[context, setContext]}>
       <Header />
-      {context.currentPage === PAGE_NAMES.MAIN.name && <StartPage />}
-      {(context.currentPage === PAGE_NAMES.WORKBOOK.name && <WordPage />) ||
-        (context.currentPage === PAGE_NAMES.DICTIONARY.name && <WordPage />)}
-      <Footer />
+      {context.currentPage === PAGE_NAMES.MAIN.name && (
+        <>
+          <StartPage />
+          <Footer />
+        </>
+      )}
+      {(context.currentPage === PAGE_NAMES.WORKBOOK.name && (
+        <>
+          <WordPage />
+          <Footer />
+        </>
+      )) ||
+        (context.currentPage === PAGE_NAMES.DICTIONARY.name && (
+          <>
+            <WordPage />
+            <Footer />
+          </>
+        ))}
+      {context.currentPage === PAGE_NAMES.GAME.name && <AudioGame />}
     </Context.Provider>
   );
 }

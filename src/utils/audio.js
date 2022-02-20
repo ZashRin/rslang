@@ -15,3 +15,8 @@ export function playAudio(audio, audioMeaning, audioExample) {
   }
   playSnd();
 }
+
+export function playAudioGame(audio) {
+  const AUDIOGAME = new Audio(`${BASE_LINK}/${audio}`);
+  AUDIOGAME.play();
+}

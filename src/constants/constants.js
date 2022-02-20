@@ -17,3 +17,5 @@ export const PAGE_NAMES = {
   DICTIONARY: { id: 2, name: 'Словарь' },
   GAME: { id: 3, name: 'Игра' },
 };
+
+export const COUNT_GAMEROUNDS = 20;
