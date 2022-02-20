@@ -6,7 +6,7 @@ import { Context } from '../../Context/Context';
 import { createUserWords, deleteUserWord } from '../../utils/api';
 import { checkWordIsHard } from '../../utils/generalUtils';
 
-export function WordCard({ wordObject, color, hard }) {
+export function WordCard({ wordObject, color }) {
   const [context, setContext] = useContext(Context);
   const {
     word,

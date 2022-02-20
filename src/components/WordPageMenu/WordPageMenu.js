@@ -42,58 +42,72 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
           )}
         </div>
         <div className="WordPage-menu-slider">
-          <Button
-            variant="info"
-            disabled={page === minPage ? true : false}
-            className="WordGroup-clicker-SuperMinus"
-            onClick={() => {
-              setPage(minPage);
-            }}
-          >
-            &laquo;
-          </Button>
-          <Button
-            variant="info"
-            disabled={page === minPage ? true : false}
-            className="WordGroup-clicker-minus"
-            onClick={() => {
-              setPage(page - 1);
-            }}
-          >
-            &#60;
-          </Button>
-          <div className="WordPage-count">{page + 1}/30 </div>
-          <Button
-            variant="info"
-            className="WordGroup-clicker-plus"
-            disabled={page === maxPage ? true : false}
-            onClick={() => {
-              setPage(page + 1);
-            }}
-          >
-            &#62;
-          </Button>
-          <Button
-            variant="info"
-            className="WordGroup-clicker-SuperPlus"
-            disabled={page === maxPage ? true : false}
-            onClick={() => {
-              setPage(maxPage);
-            }}
-          >
-            &raquo;
-          </Button>
+          {context.currentPage === 'Учебник' ? (
+            <Fragment>
+              <Button
+                variant="info"
+                disabled={page === minPage ? true : false}
+                className="WordGroup-clicker-SuperMinus"
+                onClick={() => {
+                  setPage(minPage);
+                }}
+              >
+                &laquo;
+              </Button>
+              <Button
+                variant="info"
+                disabled={page === minPage ? true : false}
+                className="WordGroup-clicker-minus"
+                onClick={() => {
+                  setPage(page - 1);
+                }}
+              >
+                &#60;
+              </Button>
+              <div className="WordPage-count">{page + 1}/30 </div>
+              <Button
+                variant="info"
+                className="WordGroup-clicker-plus"
+                disabled={page === maxPage ? true : false}
+                onClick={() => {
+                  setPage(page + 1);
+                }}
+              >
+                &#62;
+              </Button>
+              <Button
+                variant="info"
+                className="WordGroup-clicker-SuperPlus"
+                disabled={page === maxPage ? true : false}
+                onClick={() => {
+                  setPage(maxPage);
+                }}
+              >
+                &raquo;
+              </Button>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <p className="count-hardWords">Сложные слова: {context.userWords.length}</p>{' '}
+            </Fragment>
+          )}
         </div>
-        <WordGroupSlider
-          setGroup={setGroup}
-          group={group}
-          setPage={setPage}
-          page={page}
-          menu={menu}
-          setMenu={setMenu}
-          color={color}
-          setColor={setColor}
-        />
+        {context.currentPage === 'Учебник' ? (
+          <WordGroupSlider
+            setGroup={setGroup}
+            group={group}
+            setPage={setPage}
+            page={page}
+            menu={menu}
+            setMenu={setMenu}
+            color={color}
+            setColor={setColor}
+          />
+        ) : (
+          <Fragment>
+            <p className="count-learndWords">Изученные слова: {context.userWords.length}</p>{' '}
+          </Fragment>
+        )}
       </div>
     </div>
   );

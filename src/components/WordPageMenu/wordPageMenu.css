@@ -9,6 +9,7 @@
     display: flex;
     background: rgb(96 222 248 / 75%);
     justify-content: space-between;
+    align-items: center;
     width: 95%;
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
@@ -37,6 +38,8 @@
 }
 .WordPage-menu-slider{
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .fa-house-chimney{
     font-size: 45px;
@@ -61,7 +64,15 @@
     cursor: pointer;
     color: white;
 }
-
+.count-hardWords{
+    font-size: 22px;
+    margin-bottom: 0px;
+}
+.count-learndWords{
+    font-size: 22px;
+    margin-right: 15px;
+    margin-bottom: 0px;
+}
 @media screen and (max-width:1024px) {
     .WordPage-menu-links{
         gap: 10px;
