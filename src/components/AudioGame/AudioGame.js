@@ -16,6 +16,9 @@ export function AudioGame() {
   const [currQuest, setCurrQuest] = useState(1);
   const [context, setContext] = useContext(Context);
   const [group, setGroup] = useState();
+  const [answers, setAnswers] = useState([]);
+  const [gameModalIsOpen, setgameModalIsOpen] = useState(true);
+
   const getWordsCallback = useCallback(async () => {
     const fullWords = [];
     for (let i = 0; i < 30; i++) {
@@ -24,11 +27,11 @@ export function AudioGame() {
     const result = await Promise.all(fullWords);
     setContext({ ...context, gameWords: result.flat() });
   }, [group]);
+
   useEffect(() => {
     getWordsCallback();
   }, [getWordsCallback]);
 
-  const [answers, setAnswers] = useState([]);
   function getQuestion() {
     setAnswers(GetRound(context.gameWords));
   }
@@ -47,9 +50,8 @@ export function AudioGame() {
     setCorrectAnswer(answers.find((el) => el[1])[0]);
     setShowCorrectAnswer(true);
   };
-  const { word, wordTranslate, transcription, image, audio } = correctAnswer;
 
-  const [gameModalIsOpen, setgameModalIsOpen] = useState(true);
+  const { word, wordTranslate, transcription, image, audio } = correctAnswer;
 
   const closeModal = () => {
     setgameModalIsOpen(false);
@@ -74,7 +76,7 @@ export function AudioGame() {
 
   return (
     <main className="main_game">
-      <Modal isOpen={gameModalIsOpen} onRequestClose={closeModal} style={customStyles}>
+      <Modal isOpen={gameModalIsOpen} style={customStyles}>
         <div>
           <div>
             <h2>Настройки игры</h2>
@@ -95,8 +97,10 @@ export function AudioGame() {
                   </select>
                 </p>
                 <p id="demo"></p>
-                <button>Отмена</button>
-                <button onClick={closeModal}>Начать игру!</button>
+                <button className="game_Button">Отмена</button>
+                <button onClick={closeModal} className="game_Button">
+                  Начать игру!
+                </button>
               </form>
             </div>
           </div>
