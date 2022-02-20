@@ -8,7 +8,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-export function GetRound(obj) {
+export function getRound(obj) {
   const answers = [];
   const indQuest = getRandomInt(0, obj.length);
   const quest = obj[indQuest];

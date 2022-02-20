@@ -24,7 +24,7 @@ export default function App() {
       {(context.currentPage === PAGE_NAMES.WORKBOOK.name && <WordPage />) ||
         (context.currentPage === PAGE_NAMES.DICTIONARY.name && <WordPage />)}
       {context.currentPage === PAGE_NAMES.GAME.name && <AudioGame />}
-      {!context.currentPage === PAGE_NAMES.GAME.name && <Footer />}
+      {!(context.currentPage === PAGE_NAMES.GAME.name) && <Footer />}
     </Context.Provider>
   );
 }

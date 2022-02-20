@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { getWords } from '../../utils/api';
-import { GetRound } from './getRound';
+import { getRound } from './getRound';
 import { Context } from '../../Context/Context';
 import { COUNT_GAMEROUNDS } from '../../constants/constants';
 import './styles.css';
@@ -33,7 +33,7 @@ export function AudioGame() {
   }, [getWordsCallback]);
 
   function getQuestion() {
-    setAnswers(GetRound(context.gameWords));
+    setAnswers(getRound(context.gameWords));
   }
 
   const playSound = () => {
