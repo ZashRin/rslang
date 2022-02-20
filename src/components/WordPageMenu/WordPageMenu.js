@@ -18,7 +18,6 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
   const returnMainPage = () => {
     setContext({ ...context, currentPage: PAGE_NAMES.MAIN.name });
   };
-
   return (
     <div className="WordPage-menu">
       <div className="WordPage-menu-wrapper">
@@ -105,7 +104,7 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
           />
         ) : (
           <Fragment>
-            <p className="count-learndWords">Изученные слова: {context.userWords.length}</p>{' '}
+            <p className="count-learndWords">Изученные слова: {context.userLearnWordsCount}</p>{' '}
           </Fragment>
         )}
       </div>

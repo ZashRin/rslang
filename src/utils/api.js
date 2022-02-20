@@ -84,7 +84,7 @@ export const getWordById = async (wordId, token) => {
 
 export const getAggregatedWords = async (id, token, value) => {
   const response = await fetch(
-    `${USERS_LINK}/${id}/aggregatedWords?wordsPerPage=20filter=%7B%22%24and%22%3A%5B%7B%22userWord.difficulty%22%3A%22${value}%22%7D%5D%7D`,
+    `${USERS_LINK}/${id}/aggregatedWords?filter=%7B%22%24and%22%3A%5B%7B%22userWord.difficulty%22%3A%22${value}%22%7D%5D%7D`,
     {
       method: 'GET',
       headers: {
@@ -96,9 +96,7 @@ export const getAggregatedWords = async (id, token, value) => {
   );
   const result = await response.json();
 
-  const { paginatedResults } = result[0];
-  console.log(paginatedResults);
-  return paginatedResults;
+  return result;
 };
 
 export const deleteUserWord = async (id, wordId, token) => {

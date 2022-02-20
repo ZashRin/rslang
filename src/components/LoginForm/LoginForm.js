@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState, useContext } from 'react';
 import { Context } from '../../Context/Context';
-import { createUser, getUserWords, loginUser } from '../../utils/api';
+import { createUser, getAggregatedWords, getUserWords, loginUser } from '../../utils/api';
 import { validateEmail } from '../../utils/generalUtils';
 import './styles.css';
 
@@ -12,11 +12,22 @@ export function LoginForm() {
   const crUsr = useCallback(async () => {
     const result = await createUser({ name, email, password });
     const userWords = await getUserWords(result.userId, result.token);
-    setContext({ ...context, id: result.userId, token: result.token, userWords: userWords, modalIsOpen: false });
+    const userLearnWords = await getAggregatedWords(result.userId, result.token, 'learn');
+    setContext({
+      ...context,
+      id: result.userId,
+      token: result.token,
+      userWords: userWords,
+      modalIsOpen: false,
+      authenticated: true,
+      userLearnWords: userLearnWords,
+    });
   }, [name, email, password, context, setContext]);
   const login = useCallback(async () => {
     const result = await loginUser({ email, password });
     const userWords = await getUserWords(result.userId, result.token);
+    const userLearnWords = await getAggregatedWords(result.userId, result.token, 'learn');
+    const { paginatedResults, totalCount } = userLearnWords[0];
     setContext({
       ...context,
       id: result.userId,
@@ -27,6 +38,8 @@ export function LoginForm() {
       password: password,
       userWords: userWords,
       modalIsOpen: false,
+      userLearnWords: paginatedResults,
+      userLearnWordsCount: totalCount[0].count,
     });
   }, [email, password, context, setContext]);
   const validation = useRef(null);
