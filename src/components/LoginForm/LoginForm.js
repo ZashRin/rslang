@@ -26,8 +26,9 @@ export function LoginForm() {
   const login = useCallback(async () => {
     const result = await loginUser({ email, password });
     const userWords = await getUserWords(result.userId, result.token);
-    // const userLearnWords = await getAggregatedWords(result.userId, result.token, 'learn');
-    // const { paginatedResults, totalCount } = userLearnWords[0];
+    const userLearnWords = await getAggregatedWords(result.userId, result.token, 'learn');
+    const { paginatedResults, totalCount } = userLearnWords[0];
+    const countLearnWords = totalCount[0] ? totalCount[0].count : 0;
     setContext({
       ...context,
       id: result.userId,
@@ -38,8 +39,8 @@ export function LoginForm() {
       password: password,
       userWords: userWords,
       modalIsOpen: false,
-      // userLearnWords: paginatedResults,
-      // userLearnWordsCount: totalCount[0].count,
+      userLearnWords: paginatedResults,
+      userLearnWordsCount: countLearnWords,
     });
   }, [email, password, context, setContext]);
   const validation = useRef(null);

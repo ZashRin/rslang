@@ -16,7 +16,7 @@ export function WordPage() {
   useEffect(async () => {
     const result = await getWords(group, page);
     let userWords;
-    if (context.authenticated && !context.userWords) userWords = await getUserWords(context.id, context.token);
+    if (context.authenticated) userWords = await getUserWords(context.id, context.token);
     await setContext({ ...context, words: result, userWords: userWords });
   }, [group, page, setContext]);
 
