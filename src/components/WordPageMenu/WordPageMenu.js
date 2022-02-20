@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { WordGroupSlider } from '../WordGroupSlider/WordGroupSlider';
 import './wordPageMenu.css';
 import { Context } from '../../Context/Context';
-import { getUserWords } from '../../utils/api';
+import { getAggregatedWords, getUserWords } from '../../utils/api';
 import { CONDITION_BOOK_PAGE, PAGE_NAMES } from '../../constants/constants';
 
 export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup, menu, setMenu, color, setColor }) {
@@ -13,7 +13,16 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
   const [context, setContext] = useContext(Context);
   const updateUserWordBook = useCallback(async () => {
     const result = await getUserWords(context.id, context.token);
-    setContext({ ...context, userWords: result, currentPage: CONDITION_BOOK_PAGE.currentValue });
+    const userLearnWords = await getAggregatedWords(context.id, context.token, 'learn');
+    const { paginatedResults, totalCount } = userLearnWords[0];
+    const countLearnWords = totalCount[0] ? totalCount[0].count : 0;
+    setContext({
+      ...context,
+      userWords: result,
+      currentPage: CONDITION_BOOK_PAGE.currentValue,
+      userLearnWords: paginatedResults,
+      userLearnWordsCount: countLearnWords,
+    });
   }, [context, setContext]);
   const returnMainPage = () => {
     setContext({ ...context, currentPage: PAGE_NAMES.MAIN.name });

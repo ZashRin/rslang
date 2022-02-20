@@ -13,6 +13,8 @@ export function LoginForm() {
     const result = await createUser({ name, email, password });
     const userWords = await getUserWords(result.userId, result.token);
     const userLearnWords = await getAggregatedWords(result.userId, result.token, 'learn');
+    const { paginatedResults, totalCount } = userLearnWords[0];
+    const countLearnWords = totalCount[0] ? totalCount[0].count : 0;
     setContext({
       ...context,
       id: result.userId,
@@ -20,12 +22,13 @@ export function LoginForm() {
       userWords: userWords,
       modalIsOpen: false,
       authenticated: true,
-      userLearnWords: userLearnWords,
+      userLearnWords: paginatedResults,
+      userLearnWordsCount: countLearnWords,
     });
   }, [name, email, password, context, setContext]);
   const login = useCallback(async () => {
     const result = await loginUser({ email, password });
-    const userWords = await getUserWords(result.userId, result.token);
+    const userWords = await getAggregatedWords(result.userId, result.token, 'hard');
     const userLearnWords = await getAggregatedWords(result.userId, result.token, 'learn');
     const { paginatedResults, totalCount } = userLearnWords[0];
     const countLearnWords = totalCount[0] ? totalCount[0].count : 0;
@@ -37,7 +40,7 @@ export function LoginForm() {
       authenticated: true,
       email: email,
       password: password,
-      userWords: userWords,
+      userWords: userWords[0].paginatedResults,
       modalIsOpen: false,
       userLearnWords: paginatedResults,
       userLearnWordsCount: countLearnWords,
