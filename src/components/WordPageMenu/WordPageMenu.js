@@ -15,12 +15,15 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
     const result = await getUserWords(context.id, context.token);
     setContext({ ...context, userWords: result, currentPage: CONDITION_BOOK_PAGE.currentValue });
   }, [context, setContext]);
+  const returnMainPage = () => {
+    setContext({ ...context, currentPage: PAGE_NAMES.MAIN.name });
+  };
 
   return (
     <div className="WordPage-menu">
       <div className="WordPage-menu-wrapper">
         <div className="WordPage-menu-links">
-          <i className="fa-solid fa-house-chimney"></i>
+          <i className="fa-solid fa-house-chimney" onClick={returnMainPage}></i>
           {context.id ? (
             <p
               onClick={() => {
@@ -32,16 +35,11 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
               }}
               className="WordPage-menu-links__game"
             >
-              {CONDITION_BOOK_PAGE.currentValue === 'Учебник' ? (
-                <Fragment>Словарь</Fragment>
-              ) : (
-                <Fragment>Учебник</Fragment>
-              )}
+              {context.currentPage === 'Учебник' ? <Fragment>Словарь</Fragment> : <Fragment>Учебник</Fragment>}
             </p>
           ) : (
             <></>
           )}
-          <p className="WordPage-menu-links__game">Тренировка</p>
         </div>
         <div className="WordPage-menu-slider">
           <Button
