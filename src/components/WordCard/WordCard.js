@@ -34,8 +34,13 @@ export function WordCard({ wordObject, color }) {
       setContext({ ...context, userWords: array });
     }
   };
-  const handleCardClick1 = () => {
-    createUserWords(wordObject, context.id, wordObject.id, context.token, 'learn');
+  const handleLearnCardClick = () => {
+    deleteUserWord(context.id, wordObject.id, context.token);
+    const index = context.userWords.findIndex((el) => el.id === wordObject.id);
+    const array = [...context.userWords];
+    array.splice(index, 1);
+    setContext({ ...context, userWords: array });
+    // createUserWords(wordObject, context.id, wordObject.id, context.token, 'learn');
   };
   const isHardFilter = {
     backgroundColor: 'rgb(246 255 19 / 40%)',
@@ -62,7 +67,7 @@ export function WordCard({ wordObject, color }) {
           <div className="word-card__audio" onClick={() => playAudio(audio, audioMeaning, audioExample)}>
             <i className="fa-solid fa-circle-play"></i>
           </div>
-          {context.authenticated ? <i className="fa-solid fa-circle-check" onClick={handleCardClick1}></i> : <></>}
+          {context.authenticated ? <i className="fa-solid fa-circle-check" onClick={handleLearnCardClick}></i> : <></>}
           <div className="word-card-word">
             {word}- {transcription} - {wordTranslate}
           </div>
