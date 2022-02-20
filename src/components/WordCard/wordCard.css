@@ -50,11 +50,11 @@
 .word-card__audio {
     display: flex;
 }
-.fa-circle-play {
+.fa-circle-play, .fa-circle-check {
     font-size: 24px;
     color: black;
 }
-.fa-circle-play:hover {
+.fa-circle-play:hover, .fa-circle-check:hover {
     cursor: pointer;
     color: white;
 }
