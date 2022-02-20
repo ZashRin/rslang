@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Context } from '../Context/Context.js';
 import { Header } from './Header/Header.js';
@@ -5,10 +6,16 @@ import { WordPage } from './WordPage/WordPage';
 import { PAGE_NAMES } from '../constants/constants.js';
 import { StartPage } from './StartPage/StartPage.js';
 import { Footer } from './Footer/Footer';
+import { getAuth, getName, getToken, getUserId } from '../utils/storage.js';
 
 export default function App() {
-  const initialState = { currentPage: PAGE_NAMES.MAIN.name };
+  const id = getUserId();
+  const token = getToken();
+  const name = getName();
+  const auth = getAuth();
+  const initialState = { id: id, token: token, name: name, authenticated: auth, currentPage: PAGE_NAMES.MAIN.name };
   const [context, setContext] = useState(initialState);
+
   return (
     <Context.Provider value={[context, setContext]}>
       <Header />
