@@ -21,6 +21,7 @@ export function WordCard({ wordObject, color, hard }) {
     audioMeaning,
     audioExample,
   } = wordObject;
+  const valueAuthorization = context.authenticated;
   const handleCardClick = () => {
     if (!checkWordIsHard(context.userWords, wordObject.id)) {
       createUserWords(wordObject, context.id, wordObject.id, context.token);
@@ -42,12 +43,17 @@ export function WordCard({ wordObject, color, hard }) {
   return (
     <div
       className="word-card-container"
-      style={checkWordIsHard(context.userWords, wordObject.id) ? isHardFilter : { backgroundColor: `rgba(${color})` }}
+      style={
+        valueAuthorization
+          ? checkWordIsHard(context.userWords, wordObject.id)
+            ? isHardFilter
+            : { backgroundColor: `rgba(${color})` }
+          : { backgroundColor: `rgba(${color})` }
+      }
     >
       <div className="word-card-content-left">
         <div className="word-card-img" style={{ backgroundImage: `url(${BASE_LINK}/${image})` }}></div>
       </div>
-      <button onClick={handleCardClick}></button>
       <div className="word-card-content-right">
         <div className="word-card__header">
           <div className="word-card__audio" onClick={() => playAudio(audio, audioMeaning, audioExample)}>
@@ -71,6 +77,7 @@ export function WordCard({ wordObject, color, hard }) {
           ></p>
           <p className="word-card_text-example-ru wordcard-text">{textExampleTranslate}</p>
         </div>
+        {context.authenticated ? <button onClick={handleCardClick}>Сложное слово</button> : <></>}
       </div>
     </div>
   );
