@@ -21,9 +21,11 @@ export function NavMenu() {
   };
   return (
     <nav className="header_nav">
-      {Object.keys(PAGE_NAMES).map((page, index) => (
-        <NavLink page={PAGE_NAMES[page]} handlePageChange={setPage} key={index} />
-      ))}
+      {Object.keys(PAGE_NAMES)
+        .filter((page) => PAGE_NAMES[page].name !== PAGE_NAMES.DICTIONARY.name)
+        .map((page, index) => (
+          <NavLink page={PAGE_NAMES[page]} handlePageChange={setPage} key={index} />
+        ))}
     </nav>
   );
 }

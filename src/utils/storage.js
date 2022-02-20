@@ -4,6 +4,7 @@ export function saveUserData(content) {
   localStorage.setItem('refreshToken', refreshToken);
   localStorage.setItem('userId', userId);
   localStorage.setItem('name', name);
+  localStorage.setItem('auth', true);
 }
 
 export function getToken() {
@@ -20,6 +21,10 @@ export function getUserId() {
 
 export function getName() {
   return localStorage.getItem('name');
+}
+
+export function getAuth() {
+  return localStorage.getItem('auth');
 }
 
 export function clearStorage() {
