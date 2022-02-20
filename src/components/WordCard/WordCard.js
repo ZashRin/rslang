@@ -22,7 +22,7 @@ export function WordCard({ wordObject, color }) {
     audioExample,
   } = wordObject;
   const valueAuthorization = context.id;
-  const handleCardClick = () => {
+  const handleCardClick = async () => {
     if (!checkWordIsHard(context.userWords, wordObject.id)) {
       createUserWords(wordObject, context.id, wordObject.id, context.token, 'hard');
       setContext({ ...context, userWords: [...context.userWords, { ...wordObject }] });

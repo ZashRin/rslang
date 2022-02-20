@@ -1,13 +1,15 @@
 .word-card-container {
     display: flex;
     border-radius: 25px;
-    border: 1px solid black;
     overflow: hidden;
     width: 45vw;
 }
 
 .word-card-content-left {
     width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .word-card-content-right {
