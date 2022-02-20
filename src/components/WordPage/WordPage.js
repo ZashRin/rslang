@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { MAX_PAGE, MIN_PAGE, PAGE_NAMES } from '../../constants/constants';
 import { Context } from '../../Context/Context';
-import { getWords } from '../../utils/api';
+import { getUserWords, getWords } from '../../utils/api';
 import { WordCard } from '../WordCard/WordCard';
 import { WordPageMenu } from '../WordPageMenu/WordPageMenu';
 import './wordPage.css';
@@ -15,7 +15,9 @@ export function WordPage() {
   const [context, setContext] = useContext(Context);
   useEffect(async () => {
     const result = await getWords(group, page);
-    await setContext({ ...context, words: result });
+    let userWords;
+    if (context.authenticated && !context.userWords) userWords = await getUserWords(context.id, context.token);
+    await setContext({ ...context, words: result, userWords: userWords });
   }, [group, page, setContext]);
 
   return (
