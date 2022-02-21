@@ -12,7 +12,7 @@
 }
 
 .header_logo {
-  background: url(./logo-blue.png);
+  background: url(https://raw.githubusercontent.com/ZashRin/rslang/develop/src/components/Header/logo-blue.png);
   background-size: 100% 100%;
   width: 20%;
   height: 83px;

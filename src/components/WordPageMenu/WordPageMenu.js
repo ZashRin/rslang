@@ -39,14 +39,18 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
               }}
               className="WordPage-menu-links__game"
             >
-              {context.currentPage === 'Учебник' ? <Fragment>Словарь</Fragment> : <Fragment>Учебник</Fragment>}
+              {context.currentPage === PAGE_NAMES.WORKBOOK.name ? (
+                <Fragment>Словарь</Fragment>
+              ) : (
+                <Fragment>Учебник</Fragment>
+              )}
             </p>
           ) : (
             <></>
           )}
         </div>
         <div className="WordPage-menu-slider">
-          {context.currentPage === 'Учебник' ? (
+          {context.currentPage === PAGE_NAMES.WORKBOOK.name ? (
             <Fragment>
               <Button
                 variant="info"
@@ -54,6 +58,7 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
                 className="WordGroup-clicker-SuperMinus"
                 onClick={() => {
                   setPage(minPage);
+                  setContext({ ...context, wordBookPage: page });
                 }}
               >
                 &laquo;
@@ -64,6 +69,7 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
                 className="WordGroup-clicker-minus"
                 onClick={() => {
                   setPage(page - 1);
+                  setContext({ ...context, wordBookPage: page });
                 }}
               >
                 &#60;
@@ -75,6 +81,7 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
                 disabled={page === maxPage ? true : false}
                 onClick={() => {
                   setPage(page + 1);
+                  setContext({ ...context, wordBookPage: page });
                 }}
               >
                 &#62;
@@ -85,6 +92,7 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
                 disabled={page === maxPage ? true : false}
                 onClick={() => {
                   setPage(maxPage);
+                  setContext({ ...context, wordBookPage: page });
                 }}
               >
                 &raquo;
@@ -92,7 +100,14 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
             </Fragment>
           ) : (
             <Fragment>
-              <p className="count-hardWords">Сложные слова: {context.userWords.length}</p>{' '}
+              <p
+                className="count-hardWords"
+                onClick={() => {
+                  setContext({ ...context, currentPage: PAGE_NAMES.DICTIONARY.name });
+                }}
+              >
+                Сложные слова: {context.userWords.length}
+              </p>
             </Fragment>
           )}
         </div>
@@ -109,7 +124,14 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
           />
         ) : (
           <Fragment>
-            <p className="count-learndWords">Изученные слова: {context.userLearnWords.length}</p>{' '}
+            <p
+              className="count-learndWords"
+              onClick={() => {
+                setContext({ ...context, currentPage: PAGE_NAMES.LEARNED.name });
+              }}
+            >
+              Изученные слова: {context.userLearnWords.length}
+            </p>
           </Fragment>
         )}
       </div>

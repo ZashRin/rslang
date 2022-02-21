@@ -73,6 +73,10 @@
     margin-right: 15px;
     margin-bottom: 0px;
 }
+.count-hardWords:hover, .count-learndWords:hover{
+    cursor: pointer;
+    color: red;
+}
 @media screen and (max-width:1024px) {
     .WordPage-menu-links{
         gap: 10px;
