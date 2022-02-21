@@ -1,13 +1,15 @@
 .word-card-container {
     display: flex;
     border-radius: 25px;
-    border: 1px solid black;
     overflow: hidden;
     width: 45vw;
 }
 
 .word-card-content-left {
     width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .word-card-content-right {
@@ -15,6 +17,7 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 10px;
 }
 
@@ -49,11 +52,11 @@
 .word-card__audio {
     display: flex;
 }
-.fa-circle-play {
+.fa-circle-play, .fa-circle-check {
     font-size: 24px;
     color: black;
 }
-.fa-circle-play:hover {
+.fa-circle-play:hover, .fa-circle-check:hover {
     cursor: pointer;
     color: white;
 }

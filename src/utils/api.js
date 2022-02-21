@@ -50,21 +50,42 @@ export const getUserWords = async (id, token) => {
     },
   });
   const result = await response.json();
-  const userWords = await Promise.all(result.map((el) => getWordById(el.wordId)));
-
+  const userWords = await Promise.all(
+    result.map(async (el) => {
+      const wordel = await getWordById(el.wordId);
+      return { ...wordel, difficulty: el.difficulty };
+    })
+  );
+  console.log(userWords);
   return userWords;
 };
 
-export const createUserWords = async (word, userId, wordId, token) => {
+export const createUserWords = async (word, userId, wordId, token, value) => {
   const response = await fetch(`${USERS_LINK}/${userId}/words/${wordId}`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      difficulty: 'hard',
+      difficulty: `${value}`,
       optional: word,
+    }),
+  });
+  return await response.json();
+};
+
+export const updateUserWords = async (userId, wordId, token, value) => {
+  const response = await fetch(`${USERS_LINK}/${userId}/words/${wordId}`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      difficulty: `${value}`,
     }),
   });
   return await response.json();
@@ -81,17 +102,21 @@ export const getWordById = async (wordId, token) => {
   return await response.json();
 };
 
-export const getAggregatedWords = async (id, token) => {
-  const response = await fetch(`${USERS_LINK}/${id}/aggregatedWords`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export const getAggregatedWords = async (id, token, value) => {
+  const response = await fetch(
+    `${USERS_LINK}/${id}/aggregatedWords?wordsPerPage=20&filter=%7B%22%24and%22%3A%5B%7B%22userWord.difficulty%22%3A%22${value}%22%7D%5D%7D`,
+    {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   const result = await response.json();
-  const { paginatedResults } = result[0];
-  return paginatedResults;
+
+  return result;
 };
 
 export const deleteUserWord = async (id, wordId, token) => {
@@ -102,8 +127,7 @@ export const deleteUserWord = async (id, wordId, token) => {
       Authorization: `Bearer ${token}`,
     },
   });
-  const result = await response.json();
-  return result;
+  return response;
 };
 
 export const getUserStat = async (id, token) => {

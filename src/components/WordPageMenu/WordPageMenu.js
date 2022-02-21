@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { Fragment, useCallback, useContext, useState } from 'react';
+import React, { Fragment, useCallback, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { WordGroupSlider } from '../WordGroupSlider/WordGroupSlider';
@@ -9,18 +8,26 @@ import { getUserWords } from '../../utils/api';
 import { CONDITION_BOOK_PAGE, PAGE_NAMES } from '../../constants/constants';
 
 export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup, menu, setMenu, color, setColor }) {
-  // eslint-disable-next-line no-unused-vars
   const [context, setContext] = useContext(Context);
   const updateUserWordBook = useCallback(async () => {
-    const result = await getUserWords(context.id, context.token);
-    setContext({ ...context, userWords: result, currentPage: CONDITION_BOOK_PAGE.currentValue });
+    const combinedUserWords = await getUserWords(context.id, context.token);
+    const userWords = combinedUserWords.filter((el) => el.difficulty === 'hard');
+    const userLearnWords = combinedUserWords.filter((el) => el.difficulty === 'learn');
+    setContext({
+      ...context,
+      userWords: userWords,
+      userLearnWords: userLearnWords,
+      currentPage: CONDITION_BOOK_PAGE.currentValue,
+    });
   }, [context, setContext]);
-
+  const returnMainPage = () => {
+    setContext({ ...context, currentPage: PAGE_NAMES.MAIN.name });
+  };
   return (
     <div className="WordPage-menu">
       <div className="WordPage-menu-wrapper">
         <div className="WordPage-menu-links">
-          <i className="fa-solid fa-house-chimney"></i>
+          <i className="fa-solid fa-house-chimney" onClick={returnMainPage}></i>
           {context.id ? (
             <p
               onClick={() => {
@@ -32,7 +39,7 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
               }}
               className="WordPage-menu-links__game"
             >
-              {CONDITION_BOOK_PAGE.currentValue === 'Учебник' ? (
+              {context.currentPage === PAGE_NAMES.WORKBOOK.name ? (
                 <Fragment>Словарь</Fragment>
               ) : (
                 <Fragment>Учебник</Fragment>
@@ -41,61 +48,92 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
           ) : (
             <></>
           )}
-          <p className="WordPage-menu-links__game">Тренировка</p>
         </div>
         <div className="WordPage-menu-slider">
-          <Button
-            variant="info"
-            disabled={page === minPage ? true : false}
-            className="WordGroup-clicker-SuperMinus"
-            onClick={() => {
-              setPage(minPage);
-            }}
-          >
-            &laquo;
-          </Button>
-          <Button
-            variant="info"
-            disabled={page === minPage ? true : false}
-            className="WordGroup-clicker-minus"
-            onClick={() => {
-              setPage(page - 1);
-            }}
-          >
-            &#60;
-          </Button>
-          <div className="WordPage-count">{page + 1}/30 </div>
-          <Button
-            variant="info"
-            className="WordGroup-clicker-plus"
-            disabled={page === maxPage ? true : false}
-            onClick={() => {
-              setPage(page + 1);
-            }}
-          >
-            &#62;
-          </Button>
-          <Button
-            variant="info"
-            className="WordGroup-clicker-SuperPlus"
-            disabled={page === maxPage ? true : false}
-            onClick={() => {
-              setPage(maxPage);
-            }}
-          >
-            &raquo;
-          </Button>
+          {context.currentPage === PAGE_NAMES.WORKBOOK.name ? (
+            <Fragment>
+              <Button
+                variant="info"
+                disabled={page === minPage ? true : false}
+                className="WordGroup-clicker-SuperMinus"
+                onClick={() => {
+                  setPage(minPage);
+                  setContext({ ...context, wordBookPage: page });
+                }}
+              >
+                &laquo;
+              </Button>
+              <Button
+                variant="info"
+                disabled={page === minPage ? true : false}
+                className="WordGroup-clicker-minus"
+                onClick={() => {
+                  setPage(page - 1);
+                  setContext({ ...context, wordBookPage: page });
+                }}
+              >
+                &#60;
+              </Button>
+              <div className="WordPage-count">{page + 1}/30 </div>
+              <Button
+                variant="info"
+                className="WordGroup-clicker-plus"
+                disabled={page === maxPage ? true : false}
+                onClick={() => {
+                  setPage(page + 1);
+                  setContext({ ...context, wordBookPage: page });
+                }}
+              >
+                &#62;
+              </Button>
+              <Button
+                variant="info"
+                className="WordGroup-clicker-SuperPlus"
+                disabled={page === maxPage ? true : false}
+                onClick={() => {
+                  setPage(maxPage);
+                  setContext({ ...context, wordBookPage: page });
+                }}
+              >
+                &raquo;
+              </Button>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <p
+                className="count-hardWords"
+                onClick={() => {
+                  setContext({ ...context, currentPage: PAGE_NAMES.DICTIONARY.name });
+                }}
+              >
+                Сложные слова: {context.userWords.length}
+              </p>
+            </Fragment>
+          )}
         </div>
-        <WordGroupSlider
-          setGroup={setGroup}
-          group={group}
-          setPage={setPage}
-          page={page}
-          menu={menu}
-          setMenu={setMenu}
-          color={color}
-          setColor={setColor}
-        />
+        {context.currentPage === 'Учебник' ? (
+          <WordGroupSlider
+            setGroup={setGroup}
+            group={group}
+            setPage={setPage}
+            page={page}
+            menu={menu}
+            setMenu={setMenu}
+            color={color}
+            setColor={setColor}
+          />
+        ) : (
+          <Fragment>
+            <p
+              className="count-learndWords"
+              onClick={() => {
+                setContext({ ...context, currentPage: PAGE_NAMES.LEARNED.name });
+              }}
+            >
+              Изученные слова: {context.userLearnWords.length}
+            </p>
+          </Fragment>
+        )}
       </div>
     </div>
   );

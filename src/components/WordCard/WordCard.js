@@ -6,7 +6,7 @@ import { Context } from '../../Context/Context';
 import { createUserWords, deleteUserWord } from '../../utils/api';
 import { checkWordIsHard } from '../../utils/generalUtils';
 
-export function WordCard({ wordObject, color, hard }) {
+export function WordCard({ wordObject, color }) {
   const [context, setContext] = useContext(Context);
   const {
     word,
@@ -21,9 +21,10 @@ export function WordCard({ wordObject, color, hard }) {
     audioMeaning,
     audioExample,
   } = wordObject;
-  const handleCardClick = () => {
+  const valueAuthorization = context.id;
+  const handleCardClick = async () => {
     if (!checkWordIsHard(context.userWords, wordObject.id)) {
-      createUserWords(wordObject, context.id, wordObject.id, context.token);
+      createUserWords(wordObject, context.id, wordObject.id, context.token, 'hard');
       setContext({ ...context, userWords: [...context.userWords, { ...wordObject }] });
     } else {
       deleteUserWord(context.id, wordObject.id, context.token);
@@ -32,6 +33,36 @@ export function WordCard({ wordObject, color, hard }) {
       array.splice(index, 1);
       setContext({ ...context, userWords: array });
     }
+    if (checkWordIsHard(context.userLearnWords, wordObject.id)) {
+      deleteUserWord(context.id, wordObject.id, context.token);
+      const index = context.userLearnWords.findIndex((el) => el.id === wordObject.id);
+      const array = [...context.userLearnWords];
+      array.splice(index, 1);
+      createUserWords(wordObject, context.id, wordObject.id, context.token, 'hard');
+      setContext({ ...context, userWords: [...context.userWords, { ...wordObject }], userLearnWords: array });
+      return;
+    }
+  };
+  const handleLearnCardClick = () => {
+    if (checkWordIsHard(context.userWords, wordObject.id)) {
+      deleteUserWord(context.id, wordObject.id, context.token);
+      const index = context.userWords.findIndex((el) => el.id === wordObject.id);
+      const array = [...context.userWords];
+      array.splice(index, 1);
+      createUserWords(wordObject, context.id, wordObject.id, context.token, 'learn');
+      setContext({ ...context, userWords: array, userLearnWords: [...context.userLearnWords, { ...wordObject }] });
+      return;
+    }
+    if (checkWordIsHard(context.userLearnWords, wordObject.id)) {
+      deleteUserWord(context.id, wordObject.id, context.token);
+      const index = context.userLearnWords.findIndex((el) => el.id === wordObject.id);
+      const array = [...context.userLearnWords];
+      array.splice(index, 1);
+      setContext({ ...context, userLearnWords: array });
+      return;
+    }
+    createUserWords(wordObject, context.id, wordObject.id, context.token, 'learn');
+    setContext({ ...context, userLearnWords: [...context.userLearnWords, { ...wordObject }] });
   };
   const isHardFilter = {
     backgroundColor: 'rgb(246 255 19 / 40%)',
@@ -42,17 +73,25 @@ export function WordCard({ wordObject, color, hard }) {
   return (
     <div
       className="word-card-container"
-      style={checkWordIsHard(context.userWords, wordObject.id) ? isHardFilter : { backgroundColor: `rgba(${color})` }}
+      style={
+        valueAuthorization
+          ? checkWordIsHard(context.userWords, wordObject.id)
+            ? isHardFilter
+            : checkWordIsHard(context.userLearnWords, wordObject.id)
+            ? { backgroundColor: 'palegreen' }
+            : { backgroundColor: `rgba(${color})` }
+          : { backgroundColor: `rgba(${color})` }
+      }
     >
       <div className="word-card-content-left">
         <div className="word-card-img" style={{ backgroundImage: `url(${BASE_LINK}/${image})` }}></div>
       </div>
-      <button onClick={handleCardClick}></button>
       <div className="word-card-content-right">
         <div className="word-card__header">
           <div className="word-card__audio" onClick={() => playAudio(audio, audioMeaning, audioExample)}>
             <i className="fa-solid fa-circle-play"></i>
           </div>
+          {context.authenticated ? <i className="fa-solid fa-circle-check" onClick={handleLearnCardClick}></i> : <></>}
           <div className="word-card-word">
             {word}- {transcription} - {wordTranslate}
           </div>
@@ -71,6 +110,7 @@ export function WordCard({ wordObject, color, hard }) {
           ></p>
           <p className="word-card_text-example-ru wordcard-text">{textExampleTranslate}</p>
         </div>
+        {context.authenticated ? <button onClick={handleCardClick}>Сложное слово</button> : <></>}
       </div>
     </div>
   );

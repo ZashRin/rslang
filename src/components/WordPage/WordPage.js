@@ -16,22 +16,41 @@ export function WordPage() {
   useEffect(async () => {
     const result = await getWords(group, page);
     let userWords;
-    if (context.authenticated) userWords = await getUserWords(context.id, context.token);
-    await setContext({ ...context, words: result, userWords: userWords });
+    let userLearnWords;
+    if (context.authenticated) {
+      const combinedUserWords = await getUserWords(context.id, context.token);
+      userWords = combinedUserWords.filter((el) => el.difficulty === 'hard');
+      userLearnWords = combinedUserWords.filter((el) => el.difficulty === 'learn');
+    }
+    await setContext({
+      ...context,
+      words: result,
+      userWords: userWords,
+      userLearnWords: userLearnWords,
+      wordBookPage: page,
+    });
   }, [group, page, setContext]);
 
   return (
     <div className="BookPage-wrapper">
       <div className="BookPage-content">
-        {context.currentPage === PAGE_NAMES.WORKBOOK.name ? (
+        {context.currentPage === PAGE_NAMES.WORKBOOK.name && (
           <div className="BookPage">
             {context.words?.map((el) => (
               <WordCard color={color} key={el.id} wordObject={el} />
             ))}
           </div>
-        ) : (
+        )}
+        {context.currentPage === PAGE_NAMES.DICTIONARY.name && (
           <div className="BookPage">
             {context?.userWords.map((el) => (
+              <WordCard color={color} key={el.id} wordObject={el} hard={true} />
+            ))}
+          </div>
+        )}
+        {context.currentPage === PAGE_NAMES.LEARNED.name && (
+          <div className="BookPage">
+            {context?.userLearnWords.map((el) => (
               <WordCard color={color} key={el.id} wordObject={el} hard={true} />
             ))}
           </div>

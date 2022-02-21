@@ -15,6 +15,7 @@ export const PAGE_NAMES = {
   MAIN: { id: 0, name: 'Главная' },
   WORKBOOK: { id: 1, name: 'Учебник' },
   DICTIONARY: { id: 2, name: 'Словарь' },
+  LEARNED: { id: 2, name: 'Изученные' },
   GAME: { id: 3, name: 'Игра' },
 };
 

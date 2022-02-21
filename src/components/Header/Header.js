@@ -31,7 +31,14 @@ export function Header() {
 
   function logOut() {
     clearStorage();
-    setContext({ ...context, id: null, token: null, name: null, authenticated: false });
+    setContext({
+      ...context,
+      id: null,
+      token: null,
+      name: null,
+      authenticated: false,
+      currentPage: context.currentPage,
+    });
   }
 
   return (
