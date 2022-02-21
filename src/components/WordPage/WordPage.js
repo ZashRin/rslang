@@ -16,8 +16,13 @@ export function WordPage() {
   useEffect(async () => {
     const result = await getWords(group, page);
     let userWords;
-    if (context.authenticated) userWords = await getUserWords(context.id, context.token);
-    await setContext({ ...context, words: result, userWords: userWords });
+    let userLearnWords;
+    if (context.authenticated) {
+      const combinedUserWords = await getUserWords(context.id, context.token);
+      userWords = combinedUserWords.filter((el) => el.difficulty === 'hard');
+      userLearnWords = combinedUserWords.filter((el) => el.difficulty === 'learn');
+    }
+    await setContext({ ...context, words: result, userWords: userWords, userLearnWords: userLearnWords });
   }, [group, page, setContext]);
 
   return (

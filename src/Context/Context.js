@@ -13,6 +13,7 @@ const context = {
   email: '',
   password: '',
   words: [],
+  wordBookPage: 0,
 };
 
 export const Context = createContext(context);

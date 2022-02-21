@@ -11,12 +11,26 @@ export function LoginForm() {
   const [context, setContext] = useContext(Context);
   const crUsr = useCallback(async () => {
     const result = await createUser({ name, email, password });
-    const userWords = await getUserWords(result.userId, result.token);
-    setContext({ ...context, id: result.userId, token: result.token, userWords: userWords, modalIsOpen: false });
+    const combinedUserWords = await getUserWords(result.userId, result.token);
+    const userWords = combinedUserWords.filter((el) => el.difficulty === 'hard');
+    const userLearnWords = combinedUserWords.filter((el) => el.difficulty === 'learn');
+
+    setContext({
+      ...context,
+      id: result.userId,
+      token: result.token,
+      userWords: userWords,
+      modalIsOpen: false,
+      authenticated: true,
+      userLearnWords: userLearnWords,
+    });
   }, [name, email, password, context, setContext]);
   const login = useCallback(async () => {
     const result = await loginUser({ email, password });
-    const userWords = await getUserWords(result.userId, result.token);
+    const combinedUserWords = await getUserWords(result.userId, result.token);
+    const userWords = combinedUserWords.filter((el) => el.difficulty === 'hard');
+    const userLearnWords = combinedUserWords.filter((el) => el.difficulty === 'learn');
+
     setContext({
       ...context,
       id: result.userId,
@@ -27,6 +41,7 @@ export function LoginForm() {
       password: password,
       userWords: userWords,
       modalIsOpen: false,
+      userLearnWords: userLearnWords,
     });
   }, [email, password, context, setContext]);
   const validation = useRef(null);
