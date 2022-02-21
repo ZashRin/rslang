@@ -9,7 +9,7 @@
 .main_game {
   width: 100vw;
   height: calc(100vh - 110px);
-  background: url(./winter-2054297_960_720.jpg) no-repeat;
+  background: url(https://raw.githubusercontent.com/ZashRin/rslang/develop/src/components/AudioGame/winter-2054297_960_720.jpg) no-repeat;
   background-size: cover;
 }
 
