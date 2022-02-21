@@ -30,8 +30,6 @@ export function LoginForm() {
     const combinedUserWords = await getUserWords(result.userId, result.token);
     const userWords = combinedUserWords.filter((el) => el.difficulty === 'hard');
     const userLearnWords = combinedUserWords.filter((el) => el.difficulty === 'learn');
-    console.log('aaa', userWords);
-    console.log('bbb', userLearnWords);
 
     setContext({
       ...context,

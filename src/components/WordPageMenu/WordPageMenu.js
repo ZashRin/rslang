@@ -1,15 +1,13 @@
-/* eslint-disable no-unused-vars */
-import React, { Fragment, useCallback, useContext, useState } from 'react';
+import React, { Fragment, useCallback, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { WordGroupSlider } from '../WordGroupSlider/WordGroupSlider';
 import './wordPageMenu.css';
 import { Context } from '../../Context/Context';
-import { getAggregatedWords, getUserWords } from '../../utils/api';
+import { getUserWords } from '../../utils/api';
 import { CONDITION_BOOK_PAGE, PAGE_NAMES } from '../../constants/constants';
 
 export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup, menu, setMenu, color, setColor }) {
-  // eslint-disable-next-line no-unused-vars
   const [context, setContext] = useContext(Context);
   const updateUserWordBook = useCallback(async () => {
     const combinedUserWords = await getUserWords(context.id, context.token);
