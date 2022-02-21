@@ -12,8 +12,10 @@ Modal.setAppElement('#root');
 
 export function AudioGame() {
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
+  const [gameStarted, setGameStarted] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState({});
   const [currQuest, setCurrQuest] = useState(1);
+  const [statCorrectAnswer, setStatCorrectAnswer] = useState([]);
   const [context, setContext] = useContext(Context);
   const [group, setGroup] = useState();
   const [answers, setAnswers] = useState([]);
@@ -44,8 +46,10 @@ export function AudioGame() {
   const checkAnswer = (answer, event) => {
     if (answer[1]) {
       event.target.classList.add('correct');
+      setStatCorrectAnswer([...statCorrectAnswer, true]);
     } else {
       event.target.classList.add('uncorrect');
+      setStatCorrectAnswer([...statCorrectAnswer, false]);
     }
     setCorrectAnswer(answers.find((el) => el[1])[0]);
     setShowCorrectAnswer(true);
@@ -56,7 +60,15 @@ export function AudioGame() {
   const closeModal = () => {
     setgameModalIsOpen(false);
     getQuestion();
+    setGameStarted(true);
   };
+
+  function openModal() {
+    setGameStarted(false);
+    setgameModalIsOpen(true);
+    setCurrQuest(1);
+    setShowCorrectAnswer(false);
+  }
 
   const selectCategoryLavel = () => {
     let x = document.getElementById('mySelect').value;
@@ -87,8 +99,10 @@ export function AudioGame() {
               <form>
                 <p>
                   <select size="1" id="mySelect" name="lavel" onChange={selectCategoryLavel}>
-                    <option defaultValue>Уровень</option>
-                    <option value="1">1</option>
+                    <option disabled>Уровень</option>
+                    <option defaultValue value="1">
+                      1
+                    </option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
@@ -106,7 +120,7 @@ export function AudioGame() {
           </div>
         </div>
       </Modal>
-      {currQuest < COUNT_GAMEROUNDS ? (
+      {currQuest <= COUNT_GAMEROUNDS && gameStarted && (
         <div className="game_wrapper">
           <button onClick={playSound} className="game_Button">
             audio
@@ -139,8 +153,7 @@ export function AudioGame() {
                 className="game_Button"
                 key={index}
                 onClick={(event) => {
-                  setCurrQuest(currQuest + 1);
-                  if (currQuest < COUNT_GAMEROUNDS) {
+                  if (currQuest <= COUNT_GAMEROUNDS) {
                     checkAnswer(answer, event);
                   } else {
                     return;
@@ -154,17 +167,32 @@ export function AudioGame() {
           <button
             className="next-question game_Button"
             onClick={() => {
+              setCurrQuest(currQuest + 1);
               document.querySelector('.correct')?.classList.remove('correct');
               document.querySelector('.uncorrect')?.classList.remove('uncorrect');
-              getQuestion();
+              if (currQuest < COUNT_GAMEROUNDS) getQuestion();
               setShowCorrectAnswer(false);
             }}
           >
             Дальше
           </button>
         </div>
-      ) : (
-        <div>Спасибо за игру!</div>
+      )}
+      {!(currQuest <= COUNT_GAMEROUNDS) && (
+        <div className="endGameStat">
+          <div>Спасибо за игру!</div>
+          <div>
+            Ваш результат: {((statCorrectAnswer.filter((el) => el).length / statCorrectAnswer.length) * 100).toFixed(2)}
+            %
+          </div>
+          <button
+            onClick={() => {
+              openModal();
+            }}
+          >
+            Еще раз!
+          </button>
+        </div>
       )}
     </main>
   );
