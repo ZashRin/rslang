@@ -33,14 +33,36 @@ export function WordCard({ wordObject, color }) {
       array.splice(index, 1);
       setContext({ ...context, userWords: array });
     }
+    if (checkWordIsHard(context.userLearnWords, wordObject.id)) {
+      deleteUserWord(context.id, wordObject.id, context.token);
+      const index = context.userLearnWords.findIndex((el) => el.id === wordObject.id);
+      const array = [...context.userLearnWords];
+      array.splice(index, 1);
+      createUserWords(wordObject, context.id, wordObject.id, context.token, 'hard');
+      setContext({ ...context, userWords: [...context.userWords, { ...wordObject }], userLearnWords: array });
+      return;
+    }
   };
   const handleLearnCardClick = () => {
-    deleteUserWord(context.id, wordObject.id, context.token);
-    const index = context.userWords.findIndex((el) => el.id === wordObject.id);
-    const array = [...context.userWords];
-    array.splice(index, 1);
-    setContext({ ...context, userWords: array });
-    // createUserWords(wordObject, context.id, wordObject.id, context.token, 'learn');
+    if (checkWordIsHard(context.userWords, wordObject.id)) {
+      deleteUserWord(context.id, wordObject.id, context.token);
+      const index = context.userWords.findIndex((el) => el.id === wordObject.id);
+      const array = [...context.userWords];
+      array.splice(index, 1);
+      createUserWords(wordObject, context.id, wordObject.id, context.token, 'learn');
+      setContext({ ...context, userWords: array, userLearnWords: [...context.userLearnWords, { ...wordObject }] });
+      return;
+    }
+    if (checkWordIsHard(context.userLearnWords, wordObject.id)) {
+      deleteUserWord(context.id, wordObject.id, context.token);
+      const index = context.userLearnWords.findIndex((el) => el.id === wordObject.id);
+      const array = [...context.userLearnWords];
+      array.splice(index, 1);
+      setContext({ ...context, userLearnWords: array });
+      return;
+    }
+    createUserWords(wordObject, context.id, wordObject.id, context.token, 'learn');
+    setContext({ ...context, userLearnWords: [...context.userLearnWords, { ...wordObject }] });
   };
   const isHardFilter = {
     backgroundColor: 'rgb(246 255 19 / 40%)',
@@ -55,6 +77,8 @@ export function WordCard({ wordObject, color }) {
         valueAuthorization
           ? checkWordIsHard(context.userWords, wordObject.id)
             ? isHardFilter
+            : checkWordIsHard(context.userLearnWords, wordObject.id)
+            ? { backgroundColor: 'palegreen' }
             : { backgroundColor: `rgba(${color})` }
           : { backgroundColor: `rgba(${color})` }
       }

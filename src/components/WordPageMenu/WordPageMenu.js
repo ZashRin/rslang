@@ -12,16 +12,14 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
   // eslint-disable-next-line no-unused-vars
   const [context, setContext] = useContext(Context);
   const updateUserWordBook = useCallback(async () => {
-    const result = await getUserWords(context.id, context.token);
-    const userLearnWords = await getAggregatedWords(context.id, context.token, 'learn');
-    const { paginatedResults, totalCount } = userLearnWords[0];
-    const countLearnWords = totalCount[0] ? totalCount[0].count : 0;
+    const combinedUserWords = await getUserWords(context.id, context.token);
+    const userWords = combinedUserWords.filter((el) => el.difficulty === 'hard');
+    const userLearnWords = combinedUserWords.filter((el) => el.difficulty === 'learn');
     setContext({
       ...context,
-      userWords: result,
+      userWords: userWords,
+      userLearnWords: userLearnWords,
       currentPage: CONDITION_BOOK_PAGE.currentValue,
-      userLearnWords: paginatedResults,
-      userLearnWordsCount: countLearnWords,
     });
   }, [context, setContext]);
   const returnMainPage = () => {
@@ -113,7 +111,7 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
           />
         ) : (
           <Fragment>
-            <p className="count-learndWords">Изученные слова: {context.userLearnWordsCount}</p>{' '}
+            <p className="count-learndWords">Изученные слова: {context.userLearnWords.length}</p>{' '}
           </Fragment>
         )}
       </div>

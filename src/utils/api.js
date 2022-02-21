@@ -50,8 +50,13 @@ export const getUserWords = async (id, token) => {
     },
   });
   const result = await response.json();
-  const userWords = await Promise.all(result.map((el) => getWordById(el.wordId)));
-
+  const userWords = await Promise.all(
+    result.map(async (el) => {
+      const wordel = await getWordById(el.wordId);
+      return { ...wordel, difficulty: el.difficulty };
+    })
+  );
+  console.log(userWords);
   return userWords;
 };
 
@@ -66,6 +71,21 @@ export const createUserWords = async (word, userId, wordId, token, value) => {
     body: JSON.stringify({
       difficulty: `${value}`,
       optional: word,
+    }),
+  });
+  return await response.json();
+};
+
+export const updateUserWords = async (userId, wordId, token, value) => {
+  const response = await fetch(`${USERS_LINK}/${userId}/words/${wordId}`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      difficulty: `${value}`,
     }),
   });
   return await response.json();
