@@ -22,7 +22,13 @@ export function WordPage() {
       userWords = combinedUserWords.filter((el) => el.difficulty === 'hard');
       userLearnWords = combinedUserWords.filter((el) => el.difficulty === 'learn');
     }
-    await setContext({ ...context, words: result, userWords: userWords, userLearnWords: userLearnWords });
+    await setContext({
+      ...context,
+      words: result,
+      userWords: userWords,
+      userLearnWords: userLearnWords,
+      wordBookPage: page,
+    });
   }, [group, page, setContext]);
 
   return (

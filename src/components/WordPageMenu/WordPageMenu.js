@@ -54,6 +54,7 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
                 className="WordGroup-clicker-SuperMinus"
                 onClick={() => {
                   setPage(minPage);
+                  setContext({ ...context, wordBookPage: page });
                 }}
               >
                 &laquo;
@@ -64,6 +65,7 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
                 className="WordGroup-clicker-minus"
                 onClick={() => {
                   setPage(page - 1);
+                  setContext({ ...context, wordBookPage: page });
                 }}
               >
                 &#60;
@@ -75,6 +77,7 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
                 disabled={page === maxPage ? true : false}
                 onClick={() => {
                   setPage(page + 1);
+                  setContext({ ...context, wordBookPage: page });
                 }}
               >
                 &#62;
@@ -85,6 +88,7 @@ export function WordPageMenu({ page, setPage, minPage, maxPage, group, setGroup,
                 disabled={page === maxPage ? true : false}
                 onClick={() => {
                   setPage(maxPage);
+                  setContext({ ...context, wordBookPage: page });
                 }}
               >
                 &raquo;
