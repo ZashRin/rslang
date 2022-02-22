@@ -21,6 +21,8 @@ export function AudioGame() {
   const [group, setGroup] = useState();
   const [answers, setAnswers] = useState([]);
   const [gameModalIsOpen, setgameModalIsOpen] = useState(true);
+  const [nextButtonDis, setnextButtonDis] = useState(true);
+  const [answersButtons, setAnswersButtons] = useState(false);
 
   const getWordsCallback = useCallback(async () => {
     const fullWords = [];
@@ -163,10 +165,11 @@ export function AudioGame() {
                 onClick={(event) => {
                   if (currQuest <= COUNT_GAMEROUNDS) {
                     checkAnswer(answer, event);
-                  } else {
-                    return;
                   }
+                  setnextButtonDis(false);
+                  setAnswersButtons(true);
                 }}
+                disabled={answersButtons}
               >
                 {answer[0].wordTranslate}
               </button>
@@ -180,7 +183,10 @@ export function AudioGame() {
               document.querySelector('.uncorrect')?.classList.remove('uncorrect');
               if (currQuest < COUNT_GAMEROUNDS) getQuestion();
               setShowCorrectAnswer(false);
+              setnextButtonDis(true);
+              setAnswersButtons(false);
             }}
+            disabled={nextButtonDis}
           >
             Дальше
           </button>
