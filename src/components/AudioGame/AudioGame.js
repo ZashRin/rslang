@@ -48,7 +48,8 @@ export function AudioGame() {
     if (answer[1]) {
       event.target.classList.add('correct');
       setStatCorrectAnswer([...statCorrectAnswer, true]);
-      createUserWords(answer[0], context.id, answer[0].id, context.token, 'learn');
+      context.id && createUserWords(answer[0], context.id, answer[0].id, context.token, 'learn');
+      context.id && createUserWords(1, context.id, answer[0].id, context.token, 'game');
     } else {
       deleteUserWord(context.id, answer[0], context.token);
       event.target.classList.add('uncorrect');
@@ -76,7 +77,7 @@ export function AudioGame() {
   const selectCategoryLavel = () => {
     let x = document.getElementById('mySelect').value;
     document.getElementById('demo').innerHTML = `Вы выбрали: ${x} уровень сложности.`;
-    setGroup(x);
+    setGroup(x - 1);
   };
 
   const customStyles = {
