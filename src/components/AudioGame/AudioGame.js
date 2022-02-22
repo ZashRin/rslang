@@ -44,12 +44,11 @@ export function AudioGame() {
   };
 
   const checkAnswer = (answer, event) => {
-    console.log(answer);
+    console.log(context.userLearnWords);
     if (answer[1]) {
       event.target.classList.add('correct');
       setStatCorrectAnswer([...statCorrectAnswer, true]);
       context.id && createUserWords(answer[0], context.id, answer[0].id, context.token, 'learn');
-      context.id && createUserWords(1, context.id, answer[0].id, context.token, 'game');
     } else {
       deleteUserWord(context.id, answer[0], context.token);
       event.target.classList.add('uncorrect');
