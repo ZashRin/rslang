@@ -10,6 +10,7 @@ const context = {
   learned: 0,
   wordsPerDay: 0,
   userWords: [],
+  userLearnWords: [],
   email: '',
   password: '',
   words: [],

@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { getWords } from '../../utils/api';
+import { createUserWords, deleteUserWord, getWords } from '../../utils/api';
 import { getRound } from './getRound';
 import { Context } from '../../Context/Context';
 import { COUNT_GAMEROUNDS } from '../../constants/constants';
@@ -44,10 +44,13 @@ export function AudioGame() {
   };
 
   const checkAnswer = (answer, event) => {
+    console.log(answer);
     if (answer[1]) {
       event.target.classList.add('correct');
       setStatCorrectAnswer([...statCorrectAnswer, true]);
+      createUserWords(answer[0], context.id, answer[0].id, context.token, 'learn');
     } else {
+      deleteUserWord(context.id, answer[0], context.token);
       event.target.classList.add('uncorrect');
       setStatCorrectAnswer([...statCorrectAnswer, false]);
     }
