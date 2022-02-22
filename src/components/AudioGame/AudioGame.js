@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { createUserWords, deleteUserWord, getWords } from '../../utils/api';
+import { createUserWords, deleteUserWord, getWords, updateUserWords } from '../../utils/api';
 import { getRound } from './getRound';
 import { Context } from '../../Context/Context';
 import { COUNT_GAMEROUNDS } from '../../constants/constants';
@@ -7,6 +7,7 @@ import './styles.css';
 import { BASE_LINK } from '../../constants/apiLinks';
 import { playAudioGame } from '../../utils/audio';
 import Modal from 'react-modal';
+import { checkWordIsHard } from '../../utils/generalUtils';
 
 Modal.setAppElement('#root');
 
@@ -44,13 +45,17 @@ export function AudioGame() {
   };
 
   const checkAnswer = (answer, event) => {
-    console.log(context.userLearnWords);
     if (answer[1]) {
       event.target.classList.add('correct');
       setStatCorrectAnswer([...statCorrectAnswer, true]);
-      context.id && createUserWords(answer[0], context.id, answer[0].id, context.token, 'learn');
+      !checkWordIsHard(context.userLearnWords, answer[0].id) &&
+        context.id &&
+        createUserWords({ gameRounds: 1, winRounds: 1 }, context.id, answer[0].id, context.token, 'learn');
+      checkWordIsHard(context.userLearnWords, answer[0].id) &&
+        context.id &&
+        updateUserWords({ gameRounds: 2, winRounds: 2 }, context.id, answer[0].id, context.token, 'learn');
     } else {
-      deleteUserWord(context.id, answer[0], context.token);
+      checkWordIsHard(context.userLearnWords, answer[0].id) && deleteUserWord(context.id, answer[0], context.token);
       event.target.classList.add('uncorrect');
       setStatCorrectAnswer([...statCorrectAnswer, false]);
     }
