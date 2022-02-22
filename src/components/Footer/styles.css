@@ -1,0 +1,59 @@
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px 24px;
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 15%);
+    margin-top: auto;
+    align-items: center;
+    background: url(https://raw.githubusercontent.com/ZashRin/rslang/develop/src/components/AppDescription/assets/back.png);
+    font-size: 30px;
+    height: 150px;
+}
+
+.footer-logo {
+    width: 30%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.logo_link_wrap {
+    width: 48%;
+}
+.logo_rsL {
+    background: url(https://raw.githubusercontent.com/ZashRin/rslang/develop/src/components/Footer/logo-white.png) no-repeat;
+    background-size: 100% 90%;
+    width: 52%;
+}
+
+.gitLink {
+    text-decoration: none;
+    color: black;
+    font-size: 35px;
+    font-style: italic;
+    font-weight: 900;    
+}
+
+.footer-git {
+    width: 50%;
+}
+
+.gitLinks-item {
+    list-style-type: none;
+}
+
+.footer-gitLinks {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-inline-start: 0px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.footer-year {
+    color: black;
+    font-size: 35px;
+    font-style: italic;
+    font-weight: 900;
+}

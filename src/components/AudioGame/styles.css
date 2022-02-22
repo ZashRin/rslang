@@ -1,0 +1,99 @@
+.correct {
+  background-color: green;
+}
+
+.uncorrect {
+  background-color: red;
+}
+
+.main_game {
+  width: 100vw;
+  height: calc(100vh - 110px);
+  background: url(https://raw.githubusercontent.com/ZashRin/rslang/develop/src/components/AudioGame/winter-2054297_960_720.jpg) no-repeat;
+  background-size: cover;
+}
+
+.game_wrapper {
+  width: 75%;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.show-correct-answer {
+  background-color: aliceblue;
+  border-radius: 20px;
+  width: 50%;
+  margin: 0 auto;
+  height: 50vh;
+}
+
+.game-card-img {
+  width: 60%;
+  height: 300px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+}
+
+.game_Button {
+  color: rgba(0, 0, 0, 0.87);
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  padding: 6px 16px;
+  font-size: 1.075rem;
+  min-width: 64px;
+  box-sizing: border-box;
+  font-weight: 500;
+  line-height: 1.75;
+  border-radius: 4px;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+}
+
+.game-card-info {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: center;
+}
+
+.game-card-subtitle {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  vertical-align: middle;
+}
+
+.game-info-text {
+  font-size: 1.5rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.334;
+  letter-spacing: 0em;
+}
+
+.answerButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 70%;
+  margin: 20px auto;
+}
+
+.endGameStat {
+  width: 300px;
+  height: 300px;
+  background-color: azure;
+  color: black;
+  font-size: 1.5rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1.334;
+  letter-spacing: 0em;
+  text-align: center;
+  margin: 0 auto;
+  position: relative;
+  top: 122px;
+  border-radius: 4px;
+}

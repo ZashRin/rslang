@@ -1,0 +1,86 @@
+.WordPage-menu {
+    position: fixed;
+    bottom: 0%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.WordPage-menu-wrapper {
+    display: flex;
+    background: rgb(96 222 248 / 75%);
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+.WordPage-count{
+    background-color: #0dcaf0;
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+}
+.btn-info {
+    width: 100px;
+}
+
+.btn-info:hover {
+    border: 1px solid red !important;
+    box-shadow: none !important;
+    background-color: aquamarine !important;
+}
+
+.btn-info:focus {
+    box-shadow: none !important;
+}
+.btn-check:focus+.btn, .btn:focus {
+    box-shadow: none !important;
+}
+.WordPage-menu-slider{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.fa-house-chimney{
+    font-size: 45px;
+    color: black;
+}
+.fa-house-chimney:hover{
+    cursor: pointer;
+    color: white;
+}
+.WordPage-menu-links{
+    width: 15%;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    gap: 100px;
+}
+.WordPage-menu-links__game{
+    font-size: 22px;
+    margin: 0px;
+}
+.WordPage-menu-links__game:hover{
+    cursor: pointer;
+    color: white;
+}
+.count-hardWords{
+    font-size: 22px;
+    margin-bottom: 0px;
+}
+.count-learndWords{
+    font-size: 22px;
+    margin-right: 15px;
+    margin-bottom: 0px;
+}
+.count-hardWords:hover, .count-learndWords:hover{
+    cursor: pointer;
+    color: red;
+}
+@media screen and (max-width:1024px) {
+    .WordPage-menu-links{
+        gap: 10px;
+    }
+}
+
+

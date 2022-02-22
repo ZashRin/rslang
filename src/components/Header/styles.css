@@ -1,0 +1,92 @@
+.header {
+  height: 110px;
+  background: #629FFA;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px 24px;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 15%);
+  margin-top: auto;
+}
+
+.header_logo {
+  background: url(https://raw.githubusercontent.com/ZashRin/rslang/develop/src/components/Header/logo-blue.png);
+  background-size: 100% 100%;
+  width: 20%;
+  height: 83px;
+}
+
+.header_nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-size: 35px;
+  width: 60%;
+}
+
+.header_nav > div:hover {
+  cursor: pointer;
+  color: rgb(10, 0, 151);
+}
+
+.page_active {
+  text-decoration: overline;
+}
+
+.autorisation {
+  width: 9%;
+  border: none;
+  background-color: inherit;
+}
+
+.autorisation:hover {
+  box-sizing: border-box;
+  border: 2px solid rgb(255, 255, 255);
+}
+
+.login_text {
+  color: white;
+  font-size: 35px;
+  margin-bottom: 0px;
+}
+.login_text:hover {
+  color: rgb(10, 0, 151);
+}
+
+@media screen and (max-width:1440px) {
+  .header_nav {
+    font-size: 30px;
+    width: 65%;
+  }
+}
+@media screen and (max-width:1024px) {
+  .header_wrap {
+    max-width: 80%;
+  }
+  .header_nav {
+    font-size: 25px;
+    width: 65%;
+  }
+}
+
+@media screen and (max-width:768px) {
+  .header_wrap {
+    max-width: 90%;
+  }
+  .header_logo_link {
+    font-size: 25px;
+  }
+  .header_nav {
+    font-size: 15px;
+    width: 65%;
+  }
+  .login_text {
+    font-size: 15px;
+  }
+  
+}
