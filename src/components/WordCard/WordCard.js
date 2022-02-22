@@ -20,6 +20,8 @@ export function WordCard({ wordObject, color }) {
     audio,
     audioMeaning,
     audioExample,
+    winRounds,
+    gameRounds,
   } = wordObject;
   const valueAuthorization = context.id;
   const handleCardClick = async () => {
@@ -95,6 +97,13 @@ export function WordCard({ wordObject, color }) {
           <div className="word-card-word">
             {word}- {transcription} - {wordTranslate}
           </div>
+          {winRounds ? (
+            <div className="word-card-stat">
+              {winRounds}/{gameRounds}
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="word-card-meaning">
           <p

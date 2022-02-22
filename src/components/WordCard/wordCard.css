@@ -60,6 +60,14 @@
     cursor: pointer;
     color: white;
 }
+.word-card-stat{
+    font-size: 24px;
+    border-radius: 50%;
+    background-color: aqua;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 @media screen and (max-width:1650px) {
     .word-card-container {

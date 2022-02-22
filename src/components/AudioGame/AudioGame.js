@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { getWords } from '../../utils/api';
+import { createUserWords, deleteUserWord, getWords, updateUserWords } from '../../utils/api';
 import { getRound } from './getRound';
 import { Context } from '../../Context/Context';
 import { COUNT_GAMEROUNDS } from '../../constants/constants';
@@ -7,6 +7,7 @@ import './styles.css';
 import { BASE_LINK } from '../../constants/apiLinks';
 import { playAudioGame } from '../../utils/audio';
 import Modal from 'react-modal';
+import { checkWordIsHard } from '../../utils/generalUtils';
 
 Modal.setAppElement('#root');
 
@@ -20,6 +21,8 @@ export function AudioGame() {
   const [group, setGroup] = useState();
   const [answers, setAnswers] = useState([]);
   const [gameModalIsOpen, setgameModalIsOpen] = useState(true);
+  const [nextButtonDis, setnextButtonDis] = useState(true);
+  const [answersButtons, setAnswersButtons] = useState(false);
 
   const getWordsCallback = useCallback(async () => {
     const fullWords = [];
@@ -47,7 +50,14 @@ export function AudioGame() {
     if (answer[1]) {
       event.target.classList.add('correct');
       setStatCorrectAnswer([...statCorrectAnswer, true]);
+      !checkWordIsHard(context.userLearnWords, answer[0].id) &&
+        context.id &&
+        createUserWords({ gameRounds: 1, winRounds: 1 }, context.id, answer[0].id, context.token, 'learn');
+      checkWordIsHard(context.userLearnWords, answer[0].id) &&
+        context.id &&
+        updateUserWords({ gameRounds: 2, winRounds: 2 }, context.id, answer[0].id, context.token, 'learn');
     } else {
+      checkWordIsHard(context.userLearnWords, answer[0].id) && deleteUserWord(context.id, answer[0], context.token);
       event.target.classList.add('uncorrect');
       setStatCorrectAnswer([...statCorrectAnswer, false]);
     }
@@ -73,7 +83,7 @@ export function AudioGame() {
   const selectCategoryLavel = () => {
     let x = document.getElementById('mySelect').value;
     document.getElementById('demo').innerHTML = `Вы выбрали: ${x} уровень сложности.`;
-    setGroup(x);
+    setGroup(x - 1);
   };
 
   const customStyles = {
@@ -155,10 +165,11 @@ export function AudioGame() {
                 onClick={(event) => {
                   if (currQuest <= COUNT_GAMEROUNDS) {
                     checkAnswer(answer, event);
-                  } else {
-                    return;
                   }
+                  setnextButtonDis(false);
+                  setAnswersButtons(true);
                 }}
+                disabled={answersButtons}
               >
                 {answer[0].wordTranslate}
               </button>
@@ -172,7 +183,10 @@ export function AudioGame() {
               document.querySelector('.uncorrect')?.classList.remove('uncorrect');
               if (currQuest < COUNT_GAMEROUNDS) getQuestion();
               setShowCorrectAnswer(false);
+              setnextButtonDis(true);
+              setAnswersButtons(false);
             }}
+            disabled={nextButtonDis}
           >
             Дальше
           </button>
